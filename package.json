@@ -1,0 +1,28 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main.  ### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [],
+  "author": "Vladimir Sinelnikov",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "*"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.0",
+    "postcss-modules": "^4.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex#readme"
+}

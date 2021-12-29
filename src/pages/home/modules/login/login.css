@@ -1,0 +1,9 @@
+.login__container {
+    width: 50%;
+    background-color: antiquewhite;
+    border: solid 2px red;
+}
+
+.login__heading {
+    color: chocolate;
+}
