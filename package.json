@@ -2,19 +2,24 @@
   "name": "test",
   "version": "1.0.0",
   "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main.  ### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "start": "node ./index.js"
   },
   "keywords": [],
   "author": "Vladimir Sinelnikov",
   "license": "ISC",
+  "engines": {
+    "node": "^12"
+  },
   "devDependencies": {
     "parcel": "*"
   },
   "dependencies": {
     "autoprefixer": "^10.4.0",
+    "express": "^4.17.2",
+    "handlebars": "^4.7.7",
     "postcss-modules": "^4.3.0"
   },
   "repository": {
