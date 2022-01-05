@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main.  ### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).",
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.html",
+    "dev": "parcel static/index.html",
+    "build": "parcel build static/index.html",
     "start": "node ./index.js"
   },
   "keywords": [],
@@ -14,6 +14,7 @@
     "node": "^12"
   },
   "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "^1.0.9",
     "parcel": "*"
   },
   "dependencies": {

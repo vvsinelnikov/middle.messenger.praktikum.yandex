@@ -1,4 +1,4 @@
-import './login.css';
+import './register.css';
 
 form = document.querySelector(".login__form");
 form.addEventListener("submit", (evt) => {

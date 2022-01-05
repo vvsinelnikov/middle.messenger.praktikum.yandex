@@ -1,0 +1,56 @@
+---
+classPage: "page"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="MessageMe" />
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <script src="../src/pages/home/modules/register/index.js" type="module"></script>
+    <main>
+        <div class="{{ classPage }}">
+            <form class="login__form">
+                <div class="login_container">
+                    <h1 class="login__heading">Регистрация</h1>
+                    <label for="email" class="login__descriptor login__descriptor__hidden">Почта</label>
+                    <input id="email" class="login__input" type='email' placeholder="Почта" required maxLength='40'/>
+                    <span class="login__error login__error__hidden">Ошибка</span>
+                    <label for="login" class="login__descriptor login__descriptor__hidden">Логин</label>
+                    <input id="login" class="login__input" type='text' placeholder="Логин" required minLength='2'
+                           maxLength='40'/>
+                    <span class="login__error login__error__hidden">Ошибка</span>
+                    <label for="name" class="login__descriptor login__descriptor__hidden">Имя</label>
+                    <input id="name" class="login__input" type='text' placeholder="Имя" required minLength='2'
+                           maxLength='40'/>
+                    <span class="login__error login__error__hidden">Ошибка</span>
+                    <label for="surname" class="login__descriptor login__descriptor__hidden">Фамилия</label>
+                    <input id="surname" class="login__input" type='text' placeholder="Фамилия" required minLength='2'
+                           maxLength='40'/>
+                    <span class="login__error login__error__hidden">Ошибка</span>
+                    <label for="tel" class="login__descriptor login__descriptor__hidden">Телефон</label>
+                    <input id="tel" class="login__input" type='tel' placeholder="Телефон" required maxLength='40'/>
+                    <span class="login__error login__error__hidden">Ошибка</span>
+                    <label for="password" class="login__descriptor login__descriptor__hidden">Пароль</label>
+                    <input id="password" class="login__input" type='password' placeholder="Пароль" required minLength='2'
+                           maxLength='40'/>
+                    <span class="login__error login__error__hidden">Ошибка</span>
+                    <label for="password_check" class="login__descriptor login__descriptor__hidden">Пароль (еще раз)</label>
+                    <input id="password_check" class="login__input" type='password' placeholder="Пароль (еще раз)" required minLength='2'
+                           maxLength='40'/>
+                    <span class="login__error login__error__hidden">Ошибка</span>
+                </div>
+                <div class="login_container">
+                    <input class="login__button" type="submit" value="Зарегистрироваться"/>
+                    <a class="login__link" href="login.hbs">Войти</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
