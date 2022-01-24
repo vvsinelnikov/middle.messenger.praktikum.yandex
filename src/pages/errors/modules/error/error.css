@@ -1,23 +1,23 @@
 .error {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 180px;
 }
 
 .error__heading {
-    font-weight: var(--font-weight-normal);
-    font-size: 40px;
-    line-height: 40px;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
+  font-weight: var(--font-weight-normal);
+  font-size: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
 }
 
 .error__text {
-    font-weight: var(--font-weight-normal);
-    font-size: 20px;
-    line-height: 20px;
-    text-align: center;
+  font-weight: var(--font-weight-normal);
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
 }

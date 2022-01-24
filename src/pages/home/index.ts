@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import '../index.css';
 import './home.css';
-import template from './home.tmpl.js';
+import template from './home.tmpl';
 
 const home = Handlebars.compile(template)({
 

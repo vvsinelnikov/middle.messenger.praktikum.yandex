@@ -1,37 +1,35 @@
-@import '../../static/vendor/normalize.css';
-@import '../../static/fonts/inter/inter.css';
+@import "../../static/vendor/normalize.css";
+@import "../../static/fonts/inter/inter.css";
 
 :root {
-    --primary-blue: #3369f3;
-    --light-gray-background: #fbfbfb;
-    --dark-gray-background: #efefef;
-    --black-text: #1e1e1e;
-    --gray-text: #999;
-    --error: #ff2f2f;
-    --chat-inbound: #f8f8f8;
-    --chat-outbound: #e4edfd;
-    --font-weighit-normal: 500;
-    --font-size-normal: 13px;
-    --line-height-normal: 13px;
-    --font-size-smaller: 12px;
-    --line-height-smaller: 12px;
+  --primary-blue: #3369f3;
+  --light-gray-background: #fbfbfb;
+  --dark-gray-background: #efefef;
+  --black-text: #1e1e1e;
+  --gray-text: #999;
+  --error: #ff2f2f;
+  --chat-inbound: #f8f8f8;
+  --chat-outbound: #e4edfd;
+  --font-weighit-normal: 500;
+  --font-size-normal: 13px;
+  --line-height-normal: 13px;
+  --font-size-smaller: 12px;
+  --line-height-smaller: 12px;
 }
 
 .page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    color: var(--black-text);
-    font-family: 'Inter', 'Arial', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: var(--black-text);
+  font-family: Inter, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+  text-rendering: optimizelegibility;
 }

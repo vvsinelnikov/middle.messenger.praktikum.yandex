@@ -1,4 +1,6 @@
+index.js
+postcss.config.js
 /build
 /dist
-**/*.min.js
 /node_modules
+**/*.min.js
