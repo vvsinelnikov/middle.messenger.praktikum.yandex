@@ -1,13 +1,15 @@
-const Handlebars = require('handlebars');
+import Handlebars from 'handlebars';
 import './error.css';
 import template from './error.tmpl.js';
-import link from '../../../../components/link/index.js'
+import Link from '../../../../components/link/index.js'
 
-function error(error_number, error_text) {
-    const error = Handlebars.compile(template)({error_number, error_text});
-    document.querySelector('.page').insertAdjacentHTML('afterbegin', error);
-    document.querySelector('.error').insertAdjacentHTML('beforeend', link('index.html', 'Назад к чатам'));
+const link = Link({
+    linkUrl: 'index.html',
+    linkText: 'Назад к чатам',
+});
 
-}
+function ErrorPage(errorNumber, errorText) {
+    return Handlebars.compile(template)({errorNumber, errorText, link});
+};
 
-export default error;
+export default ErrorPage;

@@ -1,4 +1,5 @@
 const heading = `
-    <h1 class="heading">{{heading_text}}</h1>
-`
+    <h1 class="heading">{{headingText}}</h1>
+`;
+
 export default heading;

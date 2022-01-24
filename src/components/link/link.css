@@ -1,9 +1,9 @@
 .link {
     display: block;
-    font-weight: 500;
+    color: var(--primary-blue);
+    font-weight: var(--font-weight-normal);
     font-size: 11px;
     line-height: 11px;
-    color: #3369F3;
     text-align: center;
     text-decoration: none;
     margin-top: 17px;

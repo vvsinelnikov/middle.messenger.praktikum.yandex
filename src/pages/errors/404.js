@@ -1,4 +1,5 @@
 import '../index.css';
-import error from './modules/error/index.js';
+import ErrorPage from './modules/error/index.js';
 
-error(404, 'Не туда попали');
+const error = ErrorPage(404, 'Не туда попали');
+document.querySelector('.page').insertAdjacentHTML('afterbegin', error);

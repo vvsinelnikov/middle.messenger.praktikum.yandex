@@ -1,4 +1,5 @@
 const link = `
-    <a class="link" href="{{link_url}}">{{link_text}}</a>
-`
+    <a class="link" href="{{linkUrl}}">{{linkText}}</a>
+`;
+
 export default link;

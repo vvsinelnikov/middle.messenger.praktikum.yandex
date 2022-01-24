@@ -1,4 +1,5 @@
 const button = `
-    <input class="welcome__button" type="submit" value="{{button_text}}"/>
-`
+    <button class="welcome__button" type="{{buttonType}}">{{buttonText}}</button>
+`;
+
 export default button;

@@ -5,7 +5,7 @@
 }
 
 .home__left {
-    background-color: #fbfbfb;
+    background-color: var(--light-gray-background);
     width: 310px;
     height: 100vh;
     display: flex;
@@ -17,18 +17,18 @@
 .home__nav {
     display: block;
     padding: 22px 22px 7px 0;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 12px;
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-smaller);
+    line-height: var(--font-height-smaller);
     text-align: right;
-    color: #999999;
+    color: var(--gray-text);
     transition: all .25s;
     text-decoration: none;
 }
 
 .home__nav:hover {
     cursor: pointer;
-    color: #1e1e1e;
+    color: var(--black-text);
 }
 
 .home__nav:after {
@@ -55,9 +55,9 @@
     border-radius: 5px;
     padding: 0 10px 0 28px;
     font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 12px;
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-smaller);
+    line-height: var(--font-height-smaller);
 }
 
 .home__searchbox::after {
@@ -94,12 +94,12 @@
 }
 
 .snippet_active {
-    background-color: #e4edfd;
+    background-color: var(--chat-outbound);
     cursor: auto;
 }
 
 .snippet:not(.snippet_active):hover {
-    background-color: #e4edfd;
+    background-color: var(--chat-outbound);
     cursor: pointer;
 }
 
@@ -108,8 +108,8 @@
     grid-template-columns: 50px auto 25px;
     column-gap: 10px;
     grid-template-areas:
-        "A B D"
-        "A C E";
+        'A B D'
+        'A C E';
     margin: 0 10px;
     padding: 12px 0;
     border-bottom: 1px solid #eaeaea;
@@ -120,15 +120,15 @@
     width: 47px;
     height: 47px;
     border-radius: 47px;
-    background-color: #efefef;
+    background-color: var(--dark-gray-background);
 }
 
 .snippet__title {
     grid-area: B;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 13px;
-    color: #1e1e1e;
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-normal);
+    line-height: var(--font-height-normal);
+    color: var(--black-text);
     margin: 0 0 3px 0;
     white-space: nowrap;
     overflow: hidden;
@@ -138,10 +138,10 @@
 
 .snippet__text {
     grid-area: C;
-    font-weight: 500;
-    font-size: 12px;
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-smaller);
     line-height: 15px;
-    color: #999999;
+    color: var(--gray-text);
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -151,16 +151,16 @@
 
 .snippet__text_my::before {
     content: 'Вы: ';
-    color: #1e1e1e;
+    color: var(--black-text);
 }
 
 .snippet__time {
     grid-area: D;
-    font-weight: 500;
+    font-weight: var(--font-weight-normal);
     font-size: 9px;
     line-height: 13px;
     text-align: right;
-    color: #999999;
+    color: var(--dark-gray-text);
     justify-self : end;
     white-space: nowrap;
     overflow: hidden;
@@ -173,8 +173,8 @@
     width: 20px;
     height: 20px;
     border-radius: 20px;
-    background-color: #3369f3;
-    font-weight: 500;
+    background-color: var(--primary-blue);
+    font-weight: var(--font-weight-normal);
     font-size: 11px;
     line-height: 18px;
     text-align: center;
@@ -195,11 +195,11 @@
 
 .home_text {
     width: 100%;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 12px;
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-smaller);
+    line-height: var(--font-height-smaller);
     text-align: center;
-    color: #999999;
+    color: var(--gray-text);
 }
 
 .chat {
@@ -227,14 +227,14 @@
     width: 35px;
     height: 35px;
     border-radius: 35px;
-    background-color: #efefef;
+    background-color: var(--dark-gray-background);
 }
 
 .chat__title {
     font-weight: 900;
-    font-size: 13px;
-    line-height: 13px;
-    color: #1e1e1e;
+    font-size: var(--font-size-normal);
+    line-height: var(--font-height-normal);
+    color: var(--black-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -263,11 +263,11 @@
 }
 
 .chat__date {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 12px;
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-smaller);
+    line-height: var(--font-height-smaller);
     text-align: center;
-    color: #999999;
+    color: var(--gray-text);
     margin: 0;
     padding: 20px 10px;
 }
@@ -285,32 +285,32 @@
 }
 
 .chat__message_inbound {
-    background-color: #f8f8f8;
+    background-color: var(--chat-inbound);
     border-radius: 0 15px 15px 15px;
 }
 
 .chat__message_oubound {
-    background-color: #e4edfd;
+    background-color: var(--chat-outbound);
     border-radius: 15px 15px 0 15px;
     align-self: end;
 }
 
 .chat__text {
-    font-weight: 500;
-    font-size: 12px;
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-smaller);
     line-height: 15px;
-    color: #1e1e1e;
+    color: var(--black-text);
     margin: 0 0 5px 0;
     white-space: pre-wrap;
 }
 
 .chat__time {
     display: block;
-    font-weight: 500;
+    font-weight: var(--font-weight-normal);
     font-size: 9px;
     line-height: 9px;
     text-align: right;
-    color: #999999;
+    color: var(--gray-text);
 }
 
 .chat__image {
@@ -352,14 +352,14 @@
 .chat__input {
     height: 32px;
     border-radius: 32px;
-    background-color: #efefef;
+    background-color: var(--dark-gray-background);
     outline: none;
     border: none;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 12px;
-    color: #999999;
-    padding: 0 0 0 10px;
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-smaller);
+    line-height: var(--font-height-smaller);
+    color: var(--black-text);
+    padding: 0 10px 0 10px;
     margin: 0;
 }
 

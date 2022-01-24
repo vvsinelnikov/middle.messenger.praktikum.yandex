@@ -1,5 +1,21 @@
-@import "../../static/vendor/normalize.css";
-@import "../../static/fonts/inter/inter.css";
+@import '../../static/vendor/normalize.css';
+@import '../../static/fonts/inter/inter.css';
+
+:root {
+    --primary-blue: #3369f3;
+    --light-gray-background: #fbfbfb;
+    --dark-gray-background: #efefef;
+    --black-text: #1e1e1e;
+    --gray-text: #999;
+    --error: #ff2f2f;
+    --chat-inbound: #f8f8f8;
+    --chat-outbound: #e4edfd;
+    --font-weighit-normal: 500;
+    --font-size-normal: 13px;
+    --line-height-normal: 13px;
+    --font-size-smaller: 12px;
+    --line-height-smaller: 12px;
+}
 
 .page {
     display: flex;
@@ -10,7 +26,7 @@
     margin: 0;
     padding: 0;
     background-color: #fff;
-    color: #000;
+    color: var(--black-text);
     font-family: 'Inter', 'Arial', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

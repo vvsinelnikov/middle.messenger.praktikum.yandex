@@ -5,8 +5,7 @@ const template = `
         </div>    
         <div class="profile__right">
             <div class="profile__avatar"></div>
-            <div class="profile__heading"></div>
-            
+            {{{heading}}}            
             <form name="profile-form">
                 {{#each entry}}
                     <div class="profile__entry">
@@ -25,11 +24,12 @@ const template = `
                 <a href="login.html" class="profile__link profile__link_red">Выйти</a>  
             </nav>
 
-            <diiv class="profile__button">
-            
-            </diiv>
+            <div class="profile__button">
+                {{{button}}}
+            </div>
 
         </div>
     </div>
-`
+`;
+
 export default template;

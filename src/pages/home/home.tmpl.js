@@ -6,20 +6,24 @@ const template = `
                 <input class="searchbox" placeholder="Поиск" type="text">
             </div>
             <ul class="messages-list">
-                <li class="snippet"><div class="snippet__body">
-                    <div class="snippet__avatar"></div>
-                    <h2 class="snippet__title">Андрей</h2>
-                    <span class="snippet__text">Изображение</span>
-                    <div class="snippet__time">10:49</div>
-                    <div class="snippet__count">2</div>   
-                </div></li>
-                <li class="snippet snippet_active"><div class="snippet__body">
-                    <div class="snippet__avatar"></div>
-                    <h2 class="snippet__title">Design Destroyer</h2>
-                    <span class="snippet__text snippet__text_my">Друзья, у меня для вас особенный выпуск новостей!...</span>
-                    <div class="snippet__time">Пт</div>
-                    <div class="snippet__count"></div>   
-                </div></li>
+                <li class="snippet">
+                    <div class="snippet__body">
+                        <div class="snippet__avatar"></div>
+                        <h2 class="snippet__title">Андрей</h2>
+                        <span class="snippet__text">Изображение</span>
+                        <div class="snippet__time">10:49</div>
+                        <div class="snippet__count">2</div>   
+                    </div>
+                </li>
+                <li class="snippet snippet_active">
+                    <div class="snippet__body">
+                        <div class="snippet__avatar"></div>
+                        <h2 class="snippet__title">Design Destroyer</h2>
+                        <span class="snippet__text snippet__text_my">Друзья, у меня для вас особенный выпуск новостей!...</span>
+                        <div class="snippet__time">Пт</div>
+                        <div class="snippet__count"></div>   
+                    </div>
+                </li>
                 
             </ul>
         </div>
@@ -65,15 +69,17 @@ const template = `
                         <span class="chat__time">17:02</span>
                     </div>
                 </div>
-                <div class="chat__controls">
+                
+                <form class="chat__controls">
                     <nav class="chat__attach-button"></nav>
                     <input type="text" placeholder="Сообщение" class="chat__input">
                     <input type="submit" value="" class="chat__send-button">
-                </div>
+                </form>
             </div>
             
             
         </div>
     </div>
-`
+`;
+
 export default template;

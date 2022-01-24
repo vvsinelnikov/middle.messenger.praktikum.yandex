@@ -1,10 +1,9 @@
-const Handlebars = require("handlebars");
+import Handlebars from 'handlebars';
 import './link.css';
 import template from './link.tmpl.js';
 
-function link(link_url, link_text) {
-    // TODO: добавить проверку на типы
-    return Handlebars.compile(template)({link_url, link_text});
-}
+function Link({linkUrl = '', linkText = ''}) {
+    return Handlebars.compile(template)({linkUrl, linkText});
+};
 
-export default link;
+export default Link;

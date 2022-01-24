@@ -1,4 +1,5 @@
 import '../index.css';
-import error from './modules/error/index.js';
+import ErrorPage from './modules/error/index.js';
 
-error(500, 'Мы уже фиксим');
+const error = ErrorPage(500, 'Мы уже фиксим');
+document.querySelector('.page').insertAdjacentHTML('afterbegin', error);
