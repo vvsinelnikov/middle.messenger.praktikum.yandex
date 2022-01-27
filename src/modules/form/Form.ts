@@ -1,20 +1,20 @@
 import Handlebars from 'handlebars';
 import './form.css';
 import template from './form.tmpl';
-import Heading from '../../components/heading/Heading';
-import Input from '../../components/input/Input';
-import Button from '../../components/button/Button';
-import Link from '../../components/link/Link';
+import Heading from '../../components/Heading/Heading';
+import Input from '../../components/Input/Input';
+import Button from '../../components/Button/Button';
+import Link from '../../components/Link/Link';
 
 function Form(
   headingText: string,
   inputs: {
     id: string;
-    maxLength: number | string;
-    minLength: number | string;
     placeholder: string;
-    required: string;
     type: string;
+    minLength?: number | string;
+    maxLength?: number | string;
+    required?: string;
   }[],
   button: {
     buttonText: string;

@@ -1,5 +1,6 @@
 import '../index.css';
-import Form from '../../modules/form/Form';
+import Form from '../../modules/Form/Form';
+import render from '../../utils/render';
 
 const inputs = [
   {
@@ -69,4 +70,4 @@ const link = {
 };
 
 const form = Form('Регистрация', inputs, button, link);
-document.querySelector('.page').insertAdjacentHTML('afterbegin', form);
+render('.page', form)

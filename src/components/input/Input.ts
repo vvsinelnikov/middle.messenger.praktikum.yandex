@@ -6,9 +6,9 @@ interface Params {
   id: string;
   placeholder: string;
   type: string;
-  minLength: number | string;
-  maxLength: number | string;
-  required: string;
+  minLength?: number | string;
+  maxLength?: number | string;
+  required?: string;
 }
 
 function Input({

@@ -2,8 +2,9 @@ import Handlebars from 'handlebars';
 import '../index.css';
 import './profile.css';
 import template from './profile.tmpl';
-import Heading from '../../components/heading/Heading';
-import Button from '../../components/button/Button';
+import Heading from '../../components/Heading/Heading';
+import Button from '../../components/Button/Button';
+import render from '../../utils/render';
 
 const button = {
   buttonType: 'submit',
@@ -47,7 +48,4 @@ const profile = Handlebars.compile(template)({
   button: Button(button),
 });
 
-const page: HTMLElement | null = document.querySelector('.page');
-if (page) {
-  page.insertAdjacentHTML('afterbegin', profile);
-}
+render('.page', profile)

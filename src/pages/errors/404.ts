@@ -1,5 +1,6 @@
 import '../index.css';
-import ErrorPage from './modules/error/Error';
+import ErrorPage from './modules/Error/Error';
+import render from '../../utils/render';
 
 const error = ErrorPage(404, 'Не туда попали');
-document.querySelector('.page').insertAdjacentHTML('afterbegin', error);
+render('.page', error)

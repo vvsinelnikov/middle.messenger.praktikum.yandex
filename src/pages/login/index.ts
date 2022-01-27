@@ -1,6 +1,7 @@
 import '../index.css';
 import './login.css';
-import Form from '../../modules/form/Form';
+import Form from '../../modules/Form/Form';
+import render from '../../utils/render';
 
 const inputs = [
   {
@@ -32,13 +33,7 @@ const link = {
 };
 
 const form: string = Form('Вход', inputs, button, link);
-
-const page: HTMLElement | null = document.querySelector('.page');
-if (page) {
-  page.insertAdjacentHTML('afterbegin', form);
-}
+render('.page', form)
 
 const f: HTMLElement | null = document.querySelector('.form');
-if (f) {
-  f.classList.add('form_login');
-}
+if (f) { f.classList.add('form_login') }
