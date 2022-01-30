@@ -1,13 +1,14 @@
-import EventBus from "./EventBus";
+import EventBus from './event-bus';
 
 class Block {
+  public props: any;
+  public eventBus: () => EventBus;
+  public eventBusSource: EventBus;
   private _tagName: string;
   private _className: string;
   private _element: HTMLElement;
-  props: any;
   oldProps: {};
   setProps: (nextProps?: any) => void;
-  eventBus: () => EventBus;
 
   static EVENTS = {
     INIT: 'init',
@@ -28,6 +29,7 @@ class Block {
     this.props = this._makePropsProxy(props);
 
     const eventBus = new EventBus();
+    this.eventBusSource = eventBus;
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -47,7 +49,6 @@ class Block {
 
   public init() {
     this._createResources();
-    // this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   private _componentDidMount() {
@@ -77,8 +78,7 @@ class Block {
     return this._element;
   }
 
-  private _render() {
-    const block = this.render();
+  private _render(block = this.render()) {
     if (this._element) {
       this._element.innerHTML = block;
     }
@@ -100,9 +100,12 @@ class Block {
         let oldProps = {};
         Object.assign(oldProps, props);
         target[prop] = value;
-        this.eventBus().emit(Block.EVENTS.FLOW_CDU, this.props, oldProps, props);
         Object.assign(oldProps, props);
         return true;
+      },
+      get: (target, prop) => {
+        const value = target[prop];
+        return typeof value === "function" ? value.bind(target) : value;
       },
       deleteProperty() {
         throw new Error("Нет доступа");

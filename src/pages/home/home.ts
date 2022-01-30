@@ -2,88 +2,122 @@ import Handlebars from 'handlebars';
 import '../index.css';
 import './home.css';
 import template from './home.tmpl';
-import Chat from './modules/Chat/Chat';
-import Greeting from './modules/Greeting/Greeting';
-import Snippet from './modules/Snippet/Snippet';
+import Chat from './modules/chat/chat';
+import Greeting from './modules/greeting/greeting';
+import SnippetList from './modules/snippet-list/snippet-list';
+import Block from '../../utils/block';
 import render from '../../utils/render';
+import * as tempData from './temp-data'
 
-const messages = [
-    {
-        timeStamp: '2020-01-02T14:22:22.000Z',
-        message: 'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.\n \n Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.',
-        direction: 'inbound'
-    },
-    {
-        timeStamp: '2020-01-02T14:22:22.000Z',
-        message: 'Привет!',
-        direction: 'inbound'
-    },
-    {
-        timeStamp: '2020-01-02T14:22:22.000Z',
-        image: '../../../../../static/images/example_foto.jpg',
-        direction: 'inbound'
-    },
-    {
-        timeStamp: '2020-01-02T14:22:22.000Z',
-        message: 'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.\n \n Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.',
-        direction: 'outbound'
-    },
-];
+class Home extends Block {
+    private currentUser: tempData.IUser;
+    private greeting: Greeting;
+    private greetingHidden: boolean;
+    private snippetList: SnippetList;
+    private chat: Chat;
 
-const snippets = [
-    {
-        displayName: 'Андрей',
-        image: '../../../../../static/images/example_foto.jpg',
-        timeStamp: '2020-01-02T14:22:22.000Z',
-    },
-    {
-        displayName: 'Design Destroyer',
-        message: 'Друзья, у меня для вас особенный выпуск новостей!...',
-        timeStamp: '2020-01-02T14:22:22.000Z',
-        unreadCount: 3,
-        isMine: true,
-    },
-];
+    static EVTS = {
+        FLOW_SNPT: 'flow:update-snippets',
+        FLOW_CHAT: 'flow:update-chat'
+    };
 
-const home = Handlebars.compile(template)({});
-render('.page', home)
-
-// Отображение сниппетов
-const snippetList: Record<number, any> = {};
-// let currentSnippet: number | undefined = undefined;
-function renderSnippet({chatId}: {chatId: number}) {
-    if (snippetList[chatId]) { return }
-    else {
-        snippetList[chatId] = new Snippet({chatId});
-        render('.home__left', snippetList[chatId].getContent());
-        snippetList[chatId].dispatchComponentDidMount();
+    constructor(props: any) {
+        super('div', 'home', props);
+        this.currentUser = props.user;
+        this.greetingHidden = false;
     }
-    // currentSnippet = chatId;
-};
-renderSnippet({chatId: 987});
-snippetList[987].renderSnippet(snippets[0]);
-snippetList[987].renderSnippet(snippets[1]);
 
-
-// Отображение и скрытие приветствия
-const greeting = new Greeting();
-render('.home__right', greeting.getContent())
-greeting.dispatchComponentDidMount();
-
-// Отображение и скрытие окна чата
-const chatList: Record<number, any> = {};
-let currentChat: number | undefined = undefined;
-function renderChat({chatId, displayName}: {chatId: number; displayName: string}) {
-    if (greeting) { greeting.hide() };
-    if (currentChat) {chatList[currentChat].hide()};
-    if (chatList[chatId]) { chatList[chatId].show() }
-    else {
-        chatList[chatId] = new Chat({displayName, chatId});
-        render('.home__right', chatList[chatId].getContent());
-        chatList[chatId].dispatchComponentDidMount();
+    public render() {
+        return Handlebars.compile(template)({});
     }
-    currentChat = chatId;
-};
-renderChat({displayName: 'Вова', chatId: 123});
-chatList[123].renderMessage(messages[0]);
-chatList[123].renderMessage(messages[3]);
+
+    public prepareModules(): void {
+        this.greeting = new Greeting();
+        render('.home__right', this.greeting.getContent())
+        this.greeting.dispatchComponentDidMount();
+
+        this.snippetList = new SnippetList({
+            user: this.currentUser,
+            events: {
+                click: (evt: any) => {
+                    for (let i of evt.path) {
+                        if (i.id) {
+                            const chatId = i.id.slice(7) // получили chatId из id родительского элемента
+                            for (let i of tempData.chatResponses) {
+                                if (i.id == chatId) {
+                                    this.eventBusSource.emit(Home.EVTS.FLOW_SNPT, i);
+                                    this.eventBusSource.emit(Home.EVTS.FLOW_CHAT, i);
+                                }
+                            }
+                        }
+                    }
+
+                    // this.eventBusSource.emit(Home.EVTS.FLOW_CHAT, tempData.chatResponses[0]);
+                }
+            },
+        });
+        render('.home__left', this.snippetList.getContent());
+        this.snippetList.dispatchComponentDidMount();
+
+        this.chat = new Chat(this.currentUser);
+
+        this.eventBusSource.on(Home.EVTS.FLOW_SNPT, this._renderSnippet.bind(this));
+        this.eventBusSource.on(Home.EVTS.FLOW_CHAT, this._renderMessage.bind(this));
+    }
+
+    private _initChat() {
+        this._hideGreeting();
+        render('.home__right', this.chat.getContent());
+        this.chat.dispatchComponentDidMount();
+    }
+
+    // private _showGreeting() {
+    //     this.greeting.show();
+    // }
+
+    private _hideGreeting() {
+        this.greeting.hide();
+    }
+
+    private _renderSnippet(snippet: any) {
+        this.snippetList.renderSnippet(snippet);
+    }
+
+    private _renderMessage(message: tempData.IChatResponse) {
+        if (!this.greetingHidden) {
+            this._initChat();
+            this.greetingHidden = true;
+        }
+        this.chat.renderMessage(message)
+    }
+
+    public updateSnippets(snippets: tempData.IChatResponse) {
+        this.eventBusSource.emit(Home.EVTS.FLOW_SNPT, snippets);
+    }
+
+    public updateChat(message: tempData.IChatResponse) {
+        this.eventBusSource.emit(Home.EVTS.FLOW_CHAT, message);
+    }
+}
+
+// Получить объект пользователя после авторизации и передать в компонент
+console.log('fetch /auth/user')
+const home = new Home({
+    user: tempData.myUser
+});
+render('.page', home.getContent())
+home.dispatchComponentDidMount();
+home.prepareModules();
+
+console.log('fetch /chat')
+setTimeout(() => { home.updateSnippets(tempData.chatResponses[0]) }, 1000)
+setTimeout(() => { home.updateSnippets(tempData.chatResponses[1]) }, 2000)
+setTimeout(() => { home.updateSnippets(tempData.chatResponses[2]) }, 3000)
+
+// setTimeout(() => { home.setProps({user: 'new'}) }, 4000)
+
+// setTimeout(() => { home.updateSnippets(tempData.chatResponses[1]) }, 3000)
+// setTimeout(() => { home.updateSnippets(tempData.chatResponses[2]) }, 4000)
+// setTimeout(() => { home.updateSnippets(tempData.chatResponses[2]) }, 5000)
+//
+// setTimeout(() => { home.updateChat(tempData.chatResponses[0]) }, 6000)

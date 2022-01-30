@@ -1,7 +1,7 @@
 const chatTemplate = `
     <div class="chat__header">
         <div class="chat__avatar"></div>
-        <h2 class="chat__title">{{displayName}}</h2>
+        <h2 class="chat__title">{{first_name}} {{second_name}}</h2>
         <nav class="chat__menu"></nav>
     </div>
     <div class="chat__body" id="chat{{chatId}}">

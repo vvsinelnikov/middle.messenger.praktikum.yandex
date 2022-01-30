@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import './error.css';
 import template from './error.tmpl';
-import Link from '../../../../components/link/Link';
+import Link from '../../../../components/link/link';
 
 const link = Link({
   linkUrl: 'index.html',

@@ -1,5 +1,5 @@
 const template = `
-    <div class="snippet__body" id="snippet{{chatId}}">
+    <div class="snippet__body">
         <div class="snippet__avatar"></div>
         <h2 class="snippet__title">{{displayName}}</h2>
         <span class="snippet__text {{isMineClass}}">{{text}}</span>

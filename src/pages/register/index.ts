@@ -1,5 +1,5 @@
 import '../index.css';
-import Form from '../../modules/Form/Form';
+import Form from '../../modules/form/form';
 import render from '../../utils/render';
 
 const inputs = [
@@ -69,5 +69,10 @@ const link = {
   linkText: 'Войти?',
 };
 
-const form = Form('Регистрация', inputs, button, link);
-render('.page', form)
+// const form = Form('Регистрация', inputs, button, link);
+// render('.page', form)
+const form = new Form('Вход', inputs, button, link);
+
+render('.page', form.render())
+form.formElement.classList.add('form_login')
+form.addEventListeners()

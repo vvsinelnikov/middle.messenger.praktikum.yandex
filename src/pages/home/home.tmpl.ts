@@ -1,5 +1,5 @@
 const template = `
-    <div class="home">
+<!--    <div class="home">-->
         <div class="home__left">
             <a href="profile.html" class="home__nav">Профиль</a>
             <div class="home__searchbox">
@@ -10,7 +10,7 @@ const template = `
         <div class="home__right">
 
         </div>
-    </div>
+<!--    </div>-->
 `;
 
 export default template;

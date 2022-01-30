@@ -1,7 +1,7 @@
 import '../index.css';
 import './login.css';
-import Form from '../../modules/Form/Form';
-import render from '../../utils/render';
+import Form from '../../modules/form/form';
+import render from './../../utils/render';
 
 const inputs = [
   {
@@ -32,8 +32,8 @@ const link = {
   linkText: 'Нет аккаунта?',
 };
 
-const form: string = Form('Вход', inputs, button, link);
-render('.page', form)
+const form = new Form('Вход', inputs, button, link);
 
-const f: HTMLElement | null = document.querySelector('.form');
-if (f) { f.classList.add('form_login') }
+render('.page', form.render())
+form.formElement.classList.add('form_login')
+form.addEventListeners()

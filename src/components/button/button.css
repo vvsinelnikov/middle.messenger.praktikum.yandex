@@ -17,6 +17,11 @@
   outline: none;
 }
 
+.welcome__button_inactive {
+  background: var(--dark-gray-background);
+  cursor: auto;
+}
+
 .welcome__button:hover {
   opacity: 0.8;
   cursor: pointer;

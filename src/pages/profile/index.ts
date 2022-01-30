@@ -2,8 +2,8 @@ import Handlebars from 'handlebars';
 import '../index.css';
 import './profile.css';
 import template from './profile.tmpl';
-import Heading from '../../components/Heading/Heading';
-import Button from '../../components/Button/Button';
+import Heading from '../../components/heading/heading';
+import Button from '../../components/button/button';
 import render from '../../utils/render';
 
 const button = {
