@@ -38,6 +38,7 @@ class Form {
             entry: inputs.map((i) => Input(i)),
             link: Link(link),
         });
+
         this.formElement = document.createElement('form');
         this.formElement.classList.add('form');
         this.formElement.noValidate = true;
@@ -62,7 +63,6 @@ class Form {
     }
 
     public addEventListeners() {
-        console.log(this.formElement)
         this.formElement.onsubmit = (evt: any) => {
             evt.preventDefault();
             this.enableValidation();

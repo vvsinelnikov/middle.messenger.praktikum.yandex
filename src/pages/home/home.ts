@@ -7,6 +7,7 @@ import Greeting from './modules/greeting/greeting';
 import SnippetList from './modules/snippet-list/snippet-list';
 import Block from '../../utils/block';
 import render from '../../utils/render';
+import HTTPTransport from '../../utils/http-transport';
 import * as tempData from './temp-data'
 
 class Home extends Block {
@@ -69,6 +70,7 @@ class Home extends Block {
         this._hideGreeting();
         render('.home__right', this.chat.getContent());
         this.chat.dispatchComponentDidMount();
+        this.chat.addEvents();
     }
 
     // private _showGreeting() {
@@ -102,6 +104,7 @@ class Home extends Block {
 
 // Получить объект пользователя после авторизации и передать в компонент
 console.log('fetch /auth/user')
+console.log(new HTTPTransport().get('/auth/user'))
 const home = new Home({
     user: tempData.myUser
 });
