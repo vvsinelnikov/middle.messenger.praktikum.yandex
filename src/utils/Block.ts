@@ -1,7 +1,10 @@
+import Handlebars from 'handlebars';
+import {v4 as makeUUID} from 'uuid';
 import EventBus from './event-bus';
 
 class Block {
   public props: any;
+  private _id: number;
   public eventBus: () => EventBus;
   public eventBusSource: EventBus;
   private _tagName: string;
@@ -16,16 +19,24 @@ class Block {
     FLOW_RENDER: 'flow:render',
     FLOW_CDU: 'flow:component-did-update',
   };
+  children: any;
 
-  constructor(tagName = "div", className = '', props = {}) {
+  constructor(tagName = "div", propsAndChildren = {
+      settings: { withInternalID: false }
+  }) {
+    // if (propsAndChildren.settings.withInternalID) { this._id = makeUUID() }
+    this._id = makeUUID()
+    this.props = this._makePropsProxy({ ...propsAndChildren, __id: this._id });
     this.setProps = (nextProps?: any) => {
       if (!nextProps) {
         return;
       }
       Object.assign(this.props, nextProps);
     };
+    const { children, props } = this._getChildren(propsAndChildren);
+    this.children = children;
     this._tagName = tagName;
-    this._className = className;
+    // this._className = className;
     this.props = this._makePropsProxy(props);
 
     const eventBus = new EventBus();
@@ -111,6 +122,31 @@ class Block {
         throw new Error("Нет доступа");
       },
     });
+  }
+
+  public compile(template: string, props: any) {
+    const propsAndStubs = { ...props };
+
+    Object.entries(this.children).forEach(([key, child]) => {
+      propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+    });
+
+    return Handlebars.compile(template)(propsAndStubs);
+  }
+
+  public _getChildren(propsAndChildren: {any: any}[]) {
+    const children: any = {};
+    const props: any = {};
+
+    Object.entries(propsAndChildren).forEach(([key, value]) => {
+      if (value instanceof Block) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+    });
+
+    return { children, props };
   }
 
   public show(): void {

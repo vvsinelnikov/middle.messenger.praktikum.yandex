@@ -1,9 +1,8 @@
 const template = `
     <div class="form__container">
         {{{heading}}}
-        {{#each input}}
-            {{{this}}}
-        {{/each}}
+        {{{input}}}
+        {{{input}}}
     </div>
     <div class="form__container form__buttons">
 <!--        {{{button}}}-->

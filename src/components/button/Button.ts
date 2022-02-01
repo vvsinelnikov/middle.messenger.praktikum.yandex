@@ -11,4 +11,8 @@ function Button({ buttonType = 'button', buttonText = '' }: Params): string {
   return Handlebars.compile(template)({ buttonType, buttonText });
 }
 
+// function Button({ buttonType = 'button', buttonText = '' }: Params): string {
+//   return Handlebars.compile(template)({ buttonType, buttonText });
+// }
+
 export default Button;

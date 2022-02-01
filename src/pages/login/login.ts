@@ -1,9 +1,11 @@
 import '../index.css';
 import './login.css';
-import Form from '../../modules/form/form';
+import Block from './../../utils/block';
+import Input from './../../components/input/Input'
+import template from './login.tmpl';
 import render from './../../utils/render';
-// import Block from './../../utils/block';
-// import * as tempData from './../home/temp-data';
+import HTTPTransport from './../../utils/http-transport';
+import * as tempData from './../home/temp-data';
 
 const inputs = [
   {
@@ -34,33 +36,37 @@ const link = {
   linkText: 'Нет аккаунта?',
 };
 
-const form = new Form('Вход', inputs, button, link);
+class Login extends Block {
+  constructor(props: any) {
+    super('main', props);
+    this.props = props;
+    this.heading = `<h1>${props.heading}</h1>`
+  }
 
-render('.page', form.render())
-form.formElement.classList.add('form_login')
-form.addEventListeners()
+  public render() {
+    const options = {
+      heading: this.heading,
+      input: this.props.input
+    };
 
+    return this.compile(template, options);
+  }
 
+  public componentDidMount() {}
+}
 
-// class Login extends Block {
-//   constructor(props: any) {
-//     super('main', 'page', props);
-//     this.currentUser = props.user;
-//   }
-//
-//   public render() {
-//     const form = new Form('Вход', inputs, button, link);
-//     // console.log(form)
-//     return form.render();
-//   }
-//
-//   public componentDidMount() {}
-// }
-//
-// // Получить объект пользователя после авторизации и передать в компонент
+// Получить объект пользователя после авторизации и передать в компонент
 // console.log('fetch /auth/user')
-// const login = new Login({
-//   user: tempData.myUser
-// });
-// render('.page', login.getContent())
-// login.dispatchComponentDidMount();
+// console.log(new HTTPTransport().get('/auth/user'))
+
+const login = new Login({
+  user: tempData.myUser,
+  heading: 'Вход',
+  input: new Input(inputs[0]),
+});
+render('.page', login.getContent())
+console.log(login.getContent())
+login.dispatchComponentDidMount();
+
+// form.formElement.classList.add('form_login')
+// form.addEventListeners()
