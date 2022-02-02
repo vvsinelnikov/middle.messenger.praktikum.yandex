@@ -1,8 +1,13 @@
 const template = `
     <div class="form__container">
         {{{heading}}}
+        {{{inputEmail}}}
         {{{inputLogin}}}
+        {{{inputName}}}
+        {{{inputSurame}}}
+        {{{inputTel}}}
         {{{inputPassword}}}
+        {{{inputPasswordCheck}}}
     </div>
     <div class="form__container form__buttons">
         {{{button}}}

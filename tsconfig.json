@@ -9,6 +9,8 @@
     "noUnusedParameters": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "typeRoots": [ "./types", "./node_modules/@types"]
+  },
+  "exclude": ["node_modules", "types", ".cache"]
 }

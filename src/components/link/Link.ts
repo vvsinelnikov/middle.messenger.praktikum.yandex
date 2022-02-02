@@ -1,14 +1,18 @@
-import Handlebars from 'handlebars';
+import Block from './../../utils/block';
 import './link.css';
-import template from './link.tmpl';
 
-interface Params {
-  linkUrl: string;
+class Link extends Block {
   linkText: string;
-}
 
-function Link({ linkUrl = '', linkText = '' }: Params): string {
-  return Handlebars.compile(template)({ linkUrl, linkText });
-}
+  constructor(props: any) {
+    props.className = 'link';
+    super('a', props);
+    this.linkText = props.linkText;
+  };
+
+  public render() {
+    return this.compile(this.linkText, this.props);
+  };
+};
 
 export default Link;

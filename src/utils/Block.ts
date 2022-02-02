@@ -1,17 +1,20 @@
 import Handlebars from 'handlebars';
-import {v4 as makeUUID} from 'uuid';
+import {v4 as makeUUID} from 'uuid'
 import EventBus from './event-bus';
 
 class Block {
   public props: any;
-  private _id: number;
   public eventBus: () => EventBus;
   public eventBusSource: EventBus;
+  private _element: HTMLElement;
+  private _id: number;
   private _tagName: string;
   private _className: string;
-  private _element: HTMLElement;
-  oldProps: {};
-  setProps: (nextProps?: any) => void;
+  private _type: string;
+  private _href: string;
+
+  children: any;
+  buttonText: string;
 
   static EVENTS = {
     INIT: 'init',
@@ -19,32 +22,38 @@ class Block {
     FLOW_RENDER: 'flow:render',
     FLOW_CDU: 'flow:component-did-update',
   };
-  children: any;
 
-  constructor(tagName = "div", propsAndChildren = {
+  constructor(tagName = "div", propsAndChildren: any = {
       settings: { withInternalID: false }
   }) {
     // if (propsAndChildren.settings.withInternalID) { this._id = makeUUID() }
     this._id = makeUUID()
     this.props = this._makePropsProxy({ ...propsAndChildren, __id: this._id });
-    this.setProps = (nextProps?: any) => {
-      if (!nextProps) {
-        return;
-      }
-      Object.assign(this.props, nextProps);
-    };
     const { children, props } = this._getChildren(propsAndChildren);
     this.children = children;
+
     this._tagName = tagName;
-    // this._className = className;
-    this.props = this._makePropsProxy(props);
+    this._className = props.className;
+    this._type = props.type;
+    this._href = props.href;
 
     const eventBus = new EventBus();
-    this.eventBusSource = eventBus;
+    this.eventBusSource = eventBus; // TODO Отрефакторить
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
   }
+
+  // Обновление свойств компонентов
+  public setProps = (nextProps?: any) => {
+    if (!nextProps) {
+      return;
+    }
+
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      Object.assign(this.props, nextProps);
+    }
+  };
 
   private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
@@ -56,6 +65,8 @@ class Block {
   private _createResources() {
     this._element = document.createElement(this._tagName);
     this._element.className = this._className;
+    (<HTMLButtonElement>this._element).type = this._type;
+    (<HTMLAnchorElement>this._element).href = this._href;
   }
 
   public init() {
@@ -64,13 +75,26 @@ class Block {
 
   private _componentDidMount() {
     this.componentDidMount();
+    // Запуск рендеринга вложенных компонентов
+    Object.values(this.children).forEach((child: any) => {
+      child.dispatchComponentDidMount();
+    });
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
+  // Для переопределения наследующих компонентов
   public componentDidMount() {}
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+  }
+
+  private _addEvents() {
+    const {events = {}} = this.props;
+
+    Object.keys(events).forEach(eventName => {
+      this._element.addEventListener(eventName, events[eventName]);
+    });
   }
 
   _componentDidUpdate(oldProps: any, newProps: any) {
@@ -81,37 +105,56 @@ class Block {
     this._render();
   }
 
+  // Отслеживание изменений вложенных компонентов
   public componentDidUpdate(oldProps: any, newProps: any) {
-    return JSON.stringify(oldProps) !== JSON.stringify(newProps);
+    if (JSON.stringify(oldProps) == JSON.stringify(newProps)) { return false };
+
+    if (oldProps.buttonText !== newProps.buttonText) {
+      this.buttonText = newProps.buttonText;
+      // TODO Понять смысл и проверить необходимость этого кода из тренажера
+      // if (this.children) {
+      //   this.children.button.setProps({ text: newProps.buttonText });
+      // }
+    }
+
+    return true;
   }
 
+  // Доступ к текущему компоненту
   get element() {
     return this._element;
   }
 
-  private _render(block = this.render()) {
-    if (this._element) {
-      this._element.innerHTML = block;
-    }
-  }
-
-  public render() {
-    return `<${this._tagName}></${this._tagName}>`;
-  }
-
+  // Разметка текущего компонента
   public getContent() {
     return this._element;
   }
 
+  private _render(block: HTMLElement = this.render()) {
+    block = this.render();
+    // this._removeEvents();
+    this._element.innerHTML = '';
+    this._element.appendChild(block);
+    this._addEvents();
+  }
+
+  // Рендеринг дефолтного компонента, если свойства не переданы
+  // Для переопределения наследующих компонентов
+  public render(): HTMLElement {
+    const element = document.createElement(this._tagName);
+    return element;
+  }
+
+  // Регистрация событий при изменении свойств компонента
   private _makePropsProxy(props: any) {
-    // @ts-ignore
     const self = this;
     return new Proxy(props, {
       set: (target, prop, value) => {
         let oldProps = {};
         Object.assign(oldProps, props);
         target[prop] = value;
-        Object.assign(oldProps, props);
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, props);
+        // self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
         return true;
       },
       get: (target, prop) => {
@@ -124,17 +167,34 @@ class Block {
     });
   }
 
+  public _createDocumentElement(tagName: any) {
+    const element = document.createElement(tagName);
+    element.setAttribute('data-id', this._id);
+    return element;
+  }
+
+  // Вставка вложенных компонентов в обход шаблонизатора
+  // Замена компонента на заглушку, шаблонизация,
+  // подмена заглушки компонентом в собранном фрагменте
   public compile(template: string, props: any) {
     const propsAndStubs = { ...props };
 
-    Object.entries(this.children).forEach(([key, child]) => {
-      propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+    Object.entries(this.children).forEach(([key, child]: any) => {
+      propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
 
-    return Handlebars.compile(template)(propsAndStubs);
+    const fragment = this._createDocumentElement('template');
+    fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
+    Object.values(this.children).forEach((child: any) => {
+      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+      stub.replaceWith(child.getContent());
+    });
+
+    return fragment.content;
   }
 
-  public _getChildren(propsAndChildren: {any: any}[]) {
+  // Сортировка свойств на свойства и вложенные компоненты
+  private _getChildren(propsAndChildren: {any: any}[]) {
     const children: any = {};
     const props: any = {};
 
