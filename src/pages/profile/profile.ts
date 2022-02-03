@@ -14,39 +14,73 @@ import './profile.css';
 import * as tempData from './../home/temp-data';
 
 const emailData = {
+  className: 'profile__field',
+  id: 'email',
   name: 'Почта',
   placeholder: 'pochta@yandex.ru',
-  type: 'text',
+  type: 'email',
+  maxLength: 40,
+  required: 'required',
+  disabled: 'disabled',
 };
 
 const loginData = {
+  className: 'profile__field',
+  id: 'login',
   name: 'Логин',
   placeholder: 'ivanivanov',
   type: 'text',
+  minLength: 2,
+  maxLength: 40,
+  required: 'required',
+  disabled: 'disabled',
 };
 
 const nameData = {
+  className: 'profile__field',
+  id: 'name',
   name: 'Имя',
   placeholder: 'Иван',
   type: 'text',
+  minLength: 2,
+  maxLength: 40,
+  required: 'required',
+  disabled: 'disabled',
 };
 
 const surnameData = {
+  className: 'profile__field',
+  id: 'surname',
   name: 'Фамилия',
   placeholder: 'Иванов',
   type: 'text',
+  minLength: 2,
+  maxLength: 40,
+  required: 'required',
+  disabled: 'disabled',
 };
 
 const displayData = {
+  className: 'profile__field',
+  id: 'displayName',
   name: 'Имя в чате',
   placeholder: 'Иван',
   type: 'text',
+  minLength: 2,
+  maxLength: 40,
+  required: 'required',
+  disabled: 'disabled',
 };
 
 const telData = {
+  className: 'profile__field',
+  id: 'tel',
   name: 'Телефон',
   placeholder: '+7 (909) 967 30 30',
   type: 'tel',
+  maxLength: 40,
+  required: 'required',
+  disabled: 'disabled',
 };
 
 
@@ -65,16 +99,22 @@ class Profile extends Block {
     super('div', props);
     this.props = props;
     this.validator = undefined;
+    this.editProfile = props.editProfile
   }
 
   public render() {
     return this.compile(templatePage, this.props)
+  }
+
+  public editProfile(): void {
+    return this.editProfile()
   }
 }
 
 // Получить объект пользователя после авторизации и передать в компонент
 // console.log(new HTTPTransport().get('/auth/user'))
 
+// Элемены формы
 const heading = new Heading({headingText: 'Иван'});
 const inputEmail = new Input(emailData);
 const inputLogin = new Input(loginData);
@@ -92,14 +132,30 @@ const button = new Button({
     },
   },
 });
-const linkEditProfile = new Link({linkText: 'Изменить данные', href: '#'});
-const linkEditPassword = new Link({linkText: 'Изменить пароль', href: '#'});
-const linkLogout = new Link({linkText: 'Выйти', href: '#'});
+
+// Кнопки управления
+const linkEditProfile = new Link({
+  linkText: 'Изменить данные',
+  href: '#',
+  events: {
+    click: (evt: Event) => {
+      evt.preventDefault();
+      profile.editProfile();
+    },
+  },
+});
+
+const linkEditPassword = new Link({
+  linkText: 'Изменить пароль',
+  href: '#'
+  // TODO Сделать попап
+});
+
+const linkLogout = new Link({linkText: 'Выйти', href: 'index.html'});
 
 const form = new Form({
   user: tempData.myUser,
-  // tagName: 'div',
-  className: 'profile-form',
+  className: 'profile__form',
   template,
   inputEmail,
   inputLogin,
@@ -117,12 +173,42 @@ const profile = new Profile({
   linkEditProfile,
   linkEditPassword,
   linkLogout,
-  button
+  button,
+  editProfile: () => {
+    linkEditProfile.hide();
+    linkEditPassword.hide();
+    linkLogout.hide();
+    button.show();
+    inputEmail.setProps({'disabled': false});
+    inputLogin.setProps({'disabled': false});
+    inputName.setProps({'disabled': false});
+    inputSurname.setProps({'disabled': false});
+    inputDisplayName.setProps({'disabled': false});
+    inputTel.setProps({'disabled': false});
+  }
 });
 render('.page', profile.getContent());
 profile.dispatchComponentDidMount();
+button.hide()
+
+form.setProps({
+  user: {
+    id: 256,
+    first_name: 'Вова',
+    second_name: 'Синельников',
+    display_name: 'Это я, Синельников',
+    login: 'vvsin',
+    email: 'sinelnikov@gmail.com',
+    phone: '8(995)-211-37-89',
+    avatar: '/path/to/avatar.jpg'
+  }
+})
 
 // Тесты
-// setTimeout(() => {button.hide()}, 800)
+// setTimeout(() => {
+//   linkEditProfile.hide()
+//   linkEditPassword.hide()
+//   linkLogout.hide()
+// }, 800)
 // setTimeout(() => {button.show()}, 1200)
 // setTimeout(() => {button.setProps({buttonText: 'Еще раз'})}, 1500)

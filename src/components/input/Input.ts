@@ -4,12 +4,14 @@ import template from './input.tmpl';
 import './input.css';
 
 class Input extends Block {
+  className: string;
   id: number;
   placeholder: string;
   type: string;
   minLength?: number;
   maxLength?: number;
   required?: boolean;
+  disabled?: string
 
   constructor(props: any) {
     super('div', props);

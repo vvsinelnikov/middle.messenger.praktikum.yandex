@@ -14,6 +14,7 @@ import * as tempData from './../home/temp-data';
 
 
 const loginData = {
+  className: 'login__input',
   id: 'login',
   placeholder: 'Логин',
   type: 'text',
@@ -23,6 +24,7 @@ const loginData = {
 };
 
 const passwordData = {
+  className: 'login__input',
   id: 'password',
   placeholder: 'Пароль',
   type: 'password',

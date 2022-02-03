@@ -9,9 +9,11 @@ import render from './../../utils/render';
 import FormValidator from '../../utils/form-validator'
 // import HTTPTransport from './../../utils/http-transport';
 import '../index.css';
+import './register.css';
 import * as tempData from './../home/temp-data';
 
 const emailData = {
+  className: 'register__input',
   id: 'email',
   placeholder: 'Почта',
   type: 'email',
@@ -20,6 +22,7 @@ const emailData = {
 };
 
 const loginData = {
+  className: 'register__input',
   id: 'login',
   placeholder: 'Логин',
   type: 'text',
@@ -29,6 +32,7 @@ const loginData = {
 };
 
 const nameData = {
+  className: 'register__input',
   id: 'name',
   placeholder: 'Имя',
   type: 'text',
@@ -38,6 +42,7 @@ const nameData = {
 };
 
 const surnameData = {
+  className: 'register__input',
   id: 'surname',
   placeholder: 'Фамилия',
   type: 'text',
@@ -47,6 +52,7 @@ const surnameData = {
 };
 
 const telData = {
+  className: 'register__input',
   id: 'tel',
   placeholder: 'Телефон',
   type: 'tel',
@@ -55,6 +61,7 @@ const telData = {
 };
 
 const passwordData = {
+  className: 'register__input',
   id: 'password',
   placeholder: 'Пароль',
   type: 'password',
@@ -64,6 +71,7 @@ const passwordData = {
 };
 
 const passwordCheckData = {
+  className: 'register__input',
   id: 'password_check',
   placeholder: 'Пароль (еще раз)',
   type: 'password',

@@ -6,7 +6,7 @@ const template = `
         <div class="profile__avatar"></div>
         {{{heading}}}
         {{{form}}}            
-        <nav class="profile__entry">
+        <nav class="profile__entry profile__entry_column">
             {{{linkEditProfile}}}
             {{{linkEditPassword}}}
             {{{linkLogout}}}

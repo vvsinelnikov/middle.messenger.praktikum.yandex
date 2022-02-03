@@ -75,17 +75,19 @@
 
 .profile__entry {
   display: flex;
-  flex-direction: column;
+  /*flex-direction: column;*/
+  flex-direction: row;
   width: 510px;
   margin: 0;
-  padding-top: 10px;
+}
+
+.profile__entry_column {
+  flex-direction: column;
+  padding-top: 30px;
 }
 
 .profile__field {
-  display: flex;
-  flex-direction: row;
-  align-items: end;
-  border-bottom: solid 1px rgb(0 0 0 / 20%);
+  width: 510px;
 }
 
 .profile__entry:last-child .profile__field {
@@ -98,8 +100,9 @@
   line-height: 13px;
   color: var(--black-text);
   margin: 0;
-  padding: 0 10px 5px 0;
+  padding: 7px 10px 5px 0;
   white-space: nowrap;
+  width: 150px;
 }
 
 .profile__entry-input {
@@ -157,5 +160,4 @@
 
 .profile__button {
   width: 200px;
-  margin: 30px 0 0;
 }

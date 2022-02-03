@@ -114,11 +114,11 @@ home.dispatchComponentDidMount();
 home.prepareModules();
 
 // console.log('fetch /chat')
-setTimeout(() => { home.updateSnippets(tempData.chatResponses[0]) }, 1000)
+// setTimeout(() => { home.updateSnippets(tempData.chatResponses[0]) }, 1000)
 // setTimeout(() => { home.updateSnippets(tempData.chatResponses[1]) }, 2000)
 // setTimeout(() => { home.updateSnippets(tempData.chatResponses[2]) }, 3000)
 
-setTimeout(() => { home.setProps({user: 'new'}) }, 4000)
+// setTimeout(() => { home.setProps({user: 'new'}) }, 4000)
 
 // setTimeout(() => { home.updateSnippets(tempData.chatResponses[1]) }, 3000)
 // setTimeout(() => { home.updateSnippets(tempData.chatResponses[2]) }, 4000)
