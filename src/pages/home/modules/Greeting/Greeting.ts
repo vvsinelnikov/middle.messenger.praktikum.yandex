@@ -7,7 +7,8 @@ class Greeting extends Block {
   }
 
   render() {
-    return 'Выберите чат, чтобы отправить сообщение'
+    return this.compile('Выберите чат, чтобы отправить сообщение', this.props)
+    // return 'Выберите чат, чтобы отправить сообщение'
   }
 }
 

@@ -15,7 +15,9 @@ class SnippetList extends Block {
   }
 
   public render() {
-    return '';
+    return this.compile('<div></div>', this.props)
+
+    // return '';
   }
 
   public renderSnippet(snippetData: tempData.IChatResponse): void {

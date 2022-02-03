@@ -1,22 +1,22 @@
-import Handlebars from 'handlebars';
-import {v4 as makeUUID} from 'uuid'
-import template from './form.tmpl';
-import Block from './../../utils/block'
-import Heading from '../../components/Heading/Heading';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
-import Link from '../../components/Link/Link';
-import FormValidator from '../../utils/form-validator'
+import Block from './../../utils/block';
+import FormValidator from '../../utils/form-validator';
 import './form.css';
 
 class Form extends Block {
     validator: FormValidator | undefined;
+    user: object; //TODO Заменить после подключения API
+    template: string;
+    className: string;
+    heading: any;
+    inputLogin: any;
+    inputPassword: any;
+    button: any;
+    link: any;
 
-    constructor(props: {
-        user: object; //TODO Заменить после подключения API
-    }) {
+    constructor(props: any) {
         super('form', props);
         this.props = props;
+        this.template = props.template;
         this.validator = undefined;
     }
 
@@ -25,9 +25,9 @@ class Form extends Block {
         options.heading = `<h1>${this.props.heading}</h1>`;
         for (let key in this.props) {
             options[key] = this.props.key;
-        }
+        };
 
-        return this.compile(template, options);
+        return this.compile(this.template, options);
     }
 
     public enableValidation() {
@@ -42,19 +42,19 @@ class Form extends Block {
                 this.element);
             this.validator.enableValidation();
         }
-    };
+    }
 
     public sendForm() {
         const inputs: any = this.getContent().querySelectorAll('.input__field');
-        if (this.element) { // + validate()
+        if ((<HTMLFormElement>this.element).reportValidity()) {
             const result: any = {};
             for (let i of inputs) {
                 const input: any = this.getContent().querySelector(`#${i.id}`);
                 if (input) { result[input.id] = input.value };
-            };
+            }
             console.log(result)
-        };
-    };
+        }
+    }
 }
 
 export default Form;

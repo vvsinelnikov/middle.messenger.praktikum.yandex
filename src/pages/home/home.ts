@@ -29,7 +29,8 @@ class Home extends Block {
     }
 
     public render() {
-        return Handlebars.compile(template)({});
+        return this.compile(template, this.props)
+        // return Handlebars.compile(template)({});
     }
 
     public prepareModules(): void {
@@ -103,8 +104,8 @@ class Home extends Block {
 }
 
 // Получить объект пользователя после авторизации и передать в компонент
-console.log('fetch /auth/user')
-console.log(new HTTPTransport().get('/auth/user'))
+// console.log('fetch /auth/user')
+// console.log(new HTTPTransport().get('/auth/user'))
 const home = new Home({
     user: tempData.myUser
 });
@@ -112,12 +113,12 @@ render('.page', home.getContent())
 home.dispatchComponentDidMount();
 home.prepareModules();
 
-console.log('fetch /chat')
+// console.log('fetch /chat')
 setTimeout(() => { home.updateSnippets(tempData.chatResponses[0]) }, 1000)
-setTimeout(() => { home.updateSnippets(tempData.chatResponses[1]) }, 2000)
-setTimeout(() => { home.updateSnippets(tempData.chatResponses[2]) }, 3000)
+// setTimeout(() => { home.updateSnippets(tempData.chatResponses[1]) }, 2000)
+// setTimeout(() => { home.updateSnippets(tempData.chatResponses[2]) }, 3000)
 
-// setTimeout(() => { home.setProps({user: 'new'}) }, 4000)
+setTimeout(() => { home.setProps({user: 'new'}) }, 4000)
 
 // setTimeout(() => { home.updateSnippets(tempData.chatResponses[1]) }, 3000)
 // setTimeout(() => { home.updateSnippets(tempData.chatResponses[2]) }, 4000)

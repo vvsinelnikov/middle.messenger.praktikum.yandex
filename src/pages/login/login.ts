@@ -3,6 +3,7 @@ import Heading from './../../components/heading/heading'
 import Input from './../../components/input/input'
 import Button from './../../components/button/button'
 import Link from './../../components/link/link'
+import Form from './../../modules/form/form'
 import template from './login.tmpl';
 import render from './../../utils/render';
 import FormValidator from '../../utils/form-validator'
@@ -36,57 +37,16 @@ class Login extends Block {
   constructor(props: {
     user: object; //TODO Заменить после подключения API
     className: string;
-    heading: Heading;
-    inputLogin: Input;
-    inputPassword: Input;
-    button: Button;
-    link: Link;
+    form: Form;
   }) {
-    super('form', props);
+    super('div', props);
     this.props = props;
     this.validator = undefined;
   }
 
   public render() {
-    const options: any = {};
-    options.heading = `<h1>${this.props.heading}</h1>`;
-    for (let key in this.props) {
-      options[key] = this.props.key;
-    }
-
-    return this.compile(template, options);
+    return this.compile('{{{form}}}', this.props)
   }
-
-  public componentDidMount() {};
-
-  public enableValidation() {
-    if (!this.validator) {
-      this.validator = new FormValidator(
-          {
-            inputSelector: '.input__field',
-            submitButtonSelector: '.welcome__button',
-            inactiveButtonClass: 'welcome__button_inactive',
-            errorClass: 'input__error'
-          },
-          this.element);
-      this.validator.enableValidation();
-    }
-  };
-
-  public sendForm() {
-    const form: HTMLFormElement | null = document.querySelector('.form');
-    const inputs: any = document.querySelectorAll('.input__field');
-    if (form) {
-      if (form.checkValidity()) {
-        const result: any = {};
-        for (let i of inputs) {
-          const input: any = form.querySelector(`#${i.id}`);
-          if (input) { result[input.id] = input.value };
-        };
-        console.log(result)
-      };
-    };
-  };
 }
 
 // Получить объект пользователя после авторизации и передать в компонент
@@ -100,22 +60,28 @@ const button = new Button({
   events: {
     click: (evt: Event) => {
       evt.preventDefault();
-      // login.enableValidation();
-      login.sendForm();
+      form.enableValidation();
+      form.sendForm();
     },
   },
 });
-
 const link = new Link({linkText: 'Нет аккаунта?', href: 'register.html'});
 
-const login = new Login({
+const form = new Form({
   user: tempData.myUser,
   className: 'form form_login',
+  template,
   heading,
   inputLogin,
   inputPassword,
   button,
   link,
+});
+
+const login = new Login({
+  user: tempData.myUser,
+  className: 'login',
+  form,
 });
 render('.page', login.getContent());
 login.dispatchComponentDidMount();

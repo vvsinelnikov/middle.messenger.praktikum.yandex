@@ -17,7 +17,8 @@ class Chat extends Block {
   }
 
   public render() {
-    return Handlebars.compile(chatTemplate)({});
+    // return Handlebars.compile(chatTemplate)({});
+    return this.compile(chatTemplate, this.props)
   }
 
   public addEvents() {

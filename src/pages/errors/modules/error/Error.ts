@@ -1,15 +1,25 @@
-import Handlebars from 'handlebars';
-import './error.css';
+import Block from './../../../../utils/block';
 import template from './error.tmpl';
-import Link from '../../../../components/link/link';
+import './error.css';
 
-const link = Link({
-  linkUrl: 'index.html',
-  linkText: 'Назад к чатам',
-});
+class ErrorPage extends Block {
+  errorText: any;
+  errorNumber: any;
 
-function ErrorPage(errorNumber: number, errorText: string): string {
-  return Handlebars.compile(template)({ errorNumber, errorText, link });
+  constructor(props: {
+    errorText: string;
+    errorNumber: number;
+    link: any;
+  }) {
+    super('div', props);
+    this.props = props;
+    errorText: this.errorText;
+    errorNumber: this.errorNumber;
+  }
+
+  public render() {
+    return this.compile(template, this.props);
+  }
 }
 
 export default ErrorPage;

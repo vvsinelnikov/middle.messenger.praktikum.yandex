@@ -187,6 +187,7 @@ class Block {
     fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
     Object.values(this.children).forEach((child: any) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+      // console.log(fragment.content)
       stub.replaceWith(child.getContent());
     });
 

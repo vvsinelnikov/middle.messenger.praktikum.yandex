@@ -1,22 +1,3 @@
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 340px;
-  margin: 0;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
-}
-
 .form_login {
   min-height: 300px;
-}
-
-.form__container {
-  width: 100%;
-  margin: 0;
-  padding: 0;
 }
