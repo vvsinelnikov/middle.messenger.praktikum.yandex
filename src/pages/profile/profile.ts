@@ -1,17 +1,17 @@
-import Block from './../../utils/block';
-import Heading from './../../components/heading/heading'
-import Input from './../../components/input/input'
+import Block from '../../utils/block';
+import Heading from '../../components/heading/heading';
+import Input from '../../components/input/input';
 import Button from '../../components/button/button';
-import Link from './../../components/link/link'
-import Form from './../../modules/form/form'
+import Link from '../../components/link/link';
+import Form from '../../modules/form/form';
 import templatePage from './profile.tmpl';
 import template from './form.tmpl';
 import render from '../../utils/render';
-import FormValidator from '../../utils/form-validator'
+import FormValidator from '../../utils/form-validator';
 // import HTTPTransport from './../../utils/http-transport';
 import '../index.css';
 import './profile.css';
-import * as tempData from './../home/temp-data';
+import * as tempData from '../home/temp-data';
 
 const emailData = {
   className: 'profile__field',
@@ -83,31 +83,38 @@ const telData = {
   disabled: 'disabled',
 };
 
-
 class Profile extends Block {
   validator: FormValidator | undefined;
-  user: object; //TODO Заменить после подключения API
+
+  user: object; // TODO Заменить после подключения API
+
   template: string;
+
   heading: Heading;
+
   form: Form;
+
   linkEditProfile: Link;
+
   linkEditPassword: Link;
+
   linkLogout: Link;
+
   button: Button;
 
   constructor(props: any) {
     super('div', props);
     this.props = props;
     this.validator = undefined;
-    this.editProfile = props.editProfile
+    this.editProfile = props.editProfile;
   }
 
   public render() {
-    return this.compile(templatePage, this.props)
+    return this.compile(templatePage, this.props);
   }
 
   public editProfile(): void {
-    return this.editProfile()
+    return this.editProfile();
   }
 }
 
@@ -115,7 +122,10 @@ class Profile extends Block {
 // console.log(new HTTPTransport().get('/auth/user'))
 
 // Элемены формы
-const heading = new Heading({headingText: 'Иван'});
+const heading = new Heading({
+  headingText: 'Иван',
+  className: 'heading',
+});
 const inputEmail = new Input(emailData);
 const inputLogin = new Input(loginData);
 const inputName = new Input(nameData);
@@ -124,6 +134,8 @@ const inputDisplayName = new Input(displayData);
 const inputTel = new Input(telData);
 const button = new Button({
   buttonText: 'Сохранить',
+  className: 'welcome__button',
+  type: 'submit',
   events: {
     click: (evt: Event) => {
       evt.preventDefault();
@@ -135,6 +147,7 @@ const button = new Button({
 
 // Кнопки управления
 const linkEditProfile = new Link({
+  className: 'link',
   linkText: 'Изменить данные',
   href: '#',
   events: {
@@ -146,12 +159,17 @@ const linkEditProfile = new Link({
 });
 
 const linkEditPassword = new Link({
+  className: 'link',
   linkText: 'Изменить пароль',
-  href: '#'
+  href: '#',
   // TODO Сделать попап
 });
 
-const linkLogout = new Link({linkText: 'Выйти', href: 'index.html'});
+const linkLogout = new Link({
+  className: 'link',
+  linkText: 'Выйти',
+  href: 'index.html',
+});
 
 const form = new Form({
   user: tempData.myUser,
@@ -179,17 +197,17 @@ const profile = new Profile({
     linkEditPassword.hide();
     linkLogout.hide();
     button.show();
-    inputEmail.setProps({'disabled': false});
-    inputLogin.setProps({'disabled': false});
-    inputName.setProps({'disabled': false});
-    inputSurname.setProps({'disabled': false});
-    inputDisplayName.setProps({'disabled': false});
-    inputTel.setProps({'disabled': false});
-  }
+    inputEmail.setProps({ disabled: false });
+    inputLogin.setProps({ disabled: false });
+    inputName.setProps({ disabled: false });
+    inputSurname.setProps({ disabled: false });
+    inputDisplayName.setProps({ disabled: false });
+    inputTel.setProps({ disabled: false });
+  },
 });
 render('.page', profile.getContent());
 profile.dispatchComponentDidMount();
-button.hide()
+button.hide();
 
 form.setProps({
   user: {
@@ -200,9 +218,9 @@ form.setProps({
     login: 'vvsin',
     email: 'sinelnikov@gmail.com',
     phone: '8(995)-211-37-89',
-    avatar: '/path/to/avatar.jpg'
-  }
-})
+    avatar: '/path/to/avatar.jpg',
+  },
+});
 
 // Тесты
 // setTimeout(() => {

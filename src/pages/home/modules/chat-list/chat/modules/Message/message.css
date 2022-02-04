@@ -16,7 +16,7 @@
 }
 
 .message__body_read .message__time::before {
-  content: url("../../../../../../../static/images/read-icon.svg");
+  content: url("../../../../../../../../static/images/read-icon.svg");
   padding: 2px;
 }
 
@@ -55,6 +55,6 @@
   border: solid 1px #eaeaea;
   border-radius: 12px;
   margin-bottom: 10px;
-  background: url("../../../../../../../static/images/example_foto.jpg") no-repeat center;
+  background: url("../../../../../../../../static/images/example_foto.jpg") no-repeat center;
   background-size: cover;
 }

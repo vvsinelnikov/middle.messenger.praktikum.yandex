@@ -1,19 +1,22 @@
-import Block from './../../utils/block';
+import Block from '../../utils/block';
 import './heading.css';
 
-class Heading extends Block {
-  headingType: string;
+interface IHeading {
+  className: string;
   headingText: string;
+}
 
-  constructor(props: any) {
-    props.className = 'heading';
+class Heading extends Block {
+  private headingText: string;
+
+  constructor(props: IHeading) {
     super('h1', props);
     this.headingText = props.headingText;
-  };
+  }
 
-  public render() {
+  public render(): HTMLElement {
     return this.compile(this.headingText, this.props);
-  };
-};
+  }
+}
 
 export default Heading;

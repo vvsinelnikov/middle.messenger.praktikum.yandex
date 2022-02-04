@@ -1,13 +1,13 @@
-import Block from '../../../../utils/Block'
+import Block from '../../../../utils/Block';
 import './greeting.css';
 
 class Greeting extends Block {
-  constructor(...props: any) {
-    super('p', 'greeting', ...props);
+  constructor(props: any) {
+    super('p', props);
   }
 
   render() {
-    return this.compile('Выберите чат, чтобы отправить сообщение', this.props)
+    return this.compile('Выберите чат, чтобы отправить сообщение', this.props);
     // return 'Выберите чат, чтобы отправить сообщение'
   }
 }

@@ -25,7 +25,6 @@
   background: url("../../../static/images/send-icon.svg") no-repeat center;
   background-size: cover;
   transition: opacity 0.25s;
-  outline: none;
   transform: rotate(180deg);
 }
 
@@ -75,7 +74,6 @@
 
 .profile__entry {
   display: flex;
-  /*flex-direction: column;*/
   flex-direction: row;
   width: 510px;
   margin: 0;

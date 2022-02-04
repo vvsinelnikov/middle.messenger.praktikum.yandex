@@ -79,7 +79,9 @@ JavaScript Code Style
 * `functionNamesLikeThis`
 * `functionArgumentsLikeThis`
 * `ClassNamesLikeThis`
-* `EnumNamesLikeThis`
+* `IInrerfacesLikeThis`
+* `TTypesLikeThis`
+* `EEnumNamesLikeThis`
 * `methodNamesLikeThis`
 * `CONSTANTS_LIKE_THIS`
 * `namespacesLikeThis`
@@ -92,21 +94,21 @@ JavaScript Code Style
 ## Variable declaration
 
 * Each variable should be declared:
-    * using a `var` statement;
+    * using a `let` or `const` statement;
     * only once in the current scope;
     * on a new line;
     * as close as possible to the place where it's first used.
 
-* Each `var` statement should have only one variable declared in it.
+* Each `let` or `const` statement should have only one variable declared in it.
 
 **Good:**
 
 ```js
-var keys = ['foo', 'bar'];
-var values = [23, 42];
-var object = {};
+const keys = ['foo', 'bar'];
+const values = [23, 42];
+const object = {};
 while (items.length) {
-    var key = keys.pop();
+    let key = keys.pop();
     object[key] = values.pop();
 }
 ```
@@ -114,7 +116,7 @@ while (items.length) {
 **Bad:**
 
 ```js
-var keys = ['foo', 'bar'],
+const keys = ['foo', 'bar'],
     values = [23, 42],
     object = {},
     key;
@@ -133,14 +135,14 @@ while (items.length) {
 * There should be no whitespace after the opening and before the closing curly braces:
 
   ```js
-  var obj = {a: 1, b: 2, c: 3};
+  const obj = {a: 1, b: 2, c: 3};
   this.method({a: 1, b: 2});
   ```
 
 * There should be no whitespace characters before the colon:
 
   ```js
-  var obj = {
+  const obj = {
       prop: 0
   };
   ```
@@ -150,7 +152,7 @@ while (items.length) {
   **Good:**
 
   ```js
-  var obj = {
+  const obj = {
       a: 0,
       b: 1,
       lengthyName: 2
@@ -160,7 +162,7 @@ while (items.length) {
   **Bad:**
 
   ```js
-  var obj = {
+  const obj = {
       a          : 0,
       b          : 1,
       lengthyName: 2
@@ -172,7 +174,7 @@ while (items.length) {
   **Good:**
 
   ```js
-  var obj = {
+  const obj = {
       key: 0,
       'key-key': 1
   };
@@ -181,7 +183,7 @@ while (items.length) {
   **Bad:**
 
   ```js
-  var obj = {
+  const obj = {
       'key': 0,
       'key-key': 1
   };
@@ -192,13 +194,13 @@ while (items.length) {
   **Good:**
 
   ```js
-  var value = obj[key];
+  let value = obj[key];
   ```
 
   **Bad:**
 
   ```js
-  var value = obj[ key ];
+  let value = obj[ key ];
   ```
 
 [&#8593; back to TOC](#table-of-contents)
@@ -208,7 +210,7 @@ while (items.length) {
 * When enumerating elements in an array literal, spaces should be typed after the comma only:
 
   ```js
-  var fellowship = ['foo', 'bar', 'baz'];
+  const fellowship = ['foo', 'bar', 'baz'];
   ```
 
 [&#8593; back to TOC](#table-of-contents)
@@ -218,13 +220,13 @@ while (items.length) {
 * String literals should use single quotes:
 
   ```js
-  var lyrics = 'Never gonna give you up. Never gonna let you down. Never gonna turn around and desert you.';
+  let lyrics = 'Never gonna give you up. Never gonna let you down. Never gonna turn around and desert you.';
   ```
 
 * If a string contains a single quote character, it should be escaped:
 
   ```js
-  var test = 'It shouldn\'t fail';
+  let test = 'It shouldn\'t fail';
   ```
 
 [&#8593; back to TOC](#table-of-contents)
@@ -246,7 +248,7 @@ Statements should always end with a semicolon.
   function foo() {
       // ...
   }
-  var bar = function () {
+  const bar = function () {
       // ...
   };
   ```
@@ -310,7 +312,7 @@ Statements should always end with a semicolon.
   **Good:**
 
   ```js
-  var foo = bar();
+  let foo = bar();
   if (foo > 0) {
       // ...
   }
@@ -319,7 +321,7 @@ Statements should always end with a semicolon.
   **Bad:**
 
   ```js
-  var foo;
+  let foo;
   if ((foo = bar()) > 0) {
       // ...
   }
@@ -399,7 +401,7 @@ switch (value) {
   **Good:**
 
   ```js
-  for (var i = 0; i < 10; i++) {
+  for (let i = 0; i < 10; i++) {
       doSomething();
   }
   ```
@@ -407,7 +409,7 @@ switch (value) {
   **Bad:**
 
   ```js
-  for (var i = 0 ; i < 10 ; i++) {
+  for (let i = 0 ; i < 10 ; i++) {
       doSomething();
   }
   ```
@@ -447,10 +449,10 @@ If there is no need for type casting, the strict equality operator `===` (or str
 The ternary operator should be written as in the examples:
 
 ```js
-var x = a ? b : c;
-var y = a ?
+const x = a ? b : c;
+const y = a ?
     longButSimpleOperandB : longButSimpleOperandC;
-var z = a ?
+const z = a ?
     moreComplicatedB :
     moreComplicatedC;
 ```
@@ -462,7 +464,7 @@ var z = a ?
 Unary operators should be typed without whitespace between them and their operands:
 
 ```js
-var foo = !bar;
+const foo = !bar;
 ```
 
 Exceptions from this rule are the unary [special JS operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Special_operators)).
@@ -604,7 +606,7 @@ baz + ''
 * Lines of the statement should be split after an operator:
 
   ```js
-  var debt = this.calculateBaseDebt() + this.calculateSharedDebt() + this.calculateDebtPayments() +
+  const debt = this.calculateBaseDebt() + this.calculateSharedDebt() + this.calculateDebtPayments() +
       this.calculateDebtFine();
   ```
 
@@ -674,7 +676,7 @@ someObject
 **Good:**
 
 ```js
-var foo = 'A rather long string of English text, an error message ' +
+let foo = 'A rather long string of English text, an error message ' +
     'actually that just keeps going and going -- an error ' +
     'message to make the Energizer bunny blush (right through ' +
     'those Schwarzenegger shades)! Where was I? Oh yes, ' +
@@ -685,7 +687,7 @@ var foo = 'A rather long string of English text, an error message ' +
 **Bad:**
 
 ```js
-var foo = 'A rather long string of English text, an error message \
+let foo = 'A rather long string of English text, an error message \
           actually that just keeps going and going -- an error \
           message to make the Energizer bunny blush (right through \
           those Schwarzenegger shades)! Where was I? Oh yes, \
@@ -751,7 +753,7 @@ andNowWith(z);
 * If assigning the `this` value to a variable, the variable should be named `_this`:
 
   ```js
-  var _this = this;
+  const _this = this;
   doAsync(function () {
       _this.fn();
   });
@@ -766,8 +768,8 @@ Assignment in return statement should be avoided:
 **Good:**
 
 ```js
-var lazyCompute = (function () {
-    var result;
+const lazyCompute = (function () {
+    let result;
     return function () {
         if (!result) {
             result = compute();
@@ -780,8 +782,8 @@ var lazyCompute = (function () {
 **Bad:**
 
 ```js
-var lazyCompute = (function () {
-    var result;
+const lazyCompute = (function () {
+    let result;
     return function () {
         return result || (result = compute());
     }
@@ -816,7 +818,7 @@ var lazyCompute = (function () {
       }
       // ...
   }
-  var foo = Foo();
+  const foo = Foo();
   ```
 
 [&#8593; back to TOC](#table-of-contents)
@@ -827,7 +829,7 @@ var lazyCompute = (function () {
 * Enum members should be in `ALL_CAPS`.
 
 ```js
-var Color = {
+const Color = {
     BLUE: '#0000dd',
     RED: '#dd0000'
 };
@@ -874,47 +876,12 @@ This section describes code style for [ECMAScript 2015 Language Specification](h
   }
   ```
 
-  **Bad:**
-
-  ```js
-  // Reader expects count to change!
-  let count = observers.length;
-  let index = 0;
-  while (index < count) {
-      const observer = observers[index];
-      observer(...args);
-      index = index + 1;
-  }
-  const count = observers.length;
-  let index = 0;
-  while (index < count) {
-      // Reader expects observer to change within the block!
-      let observer = observers[index];
-      observer(...args);
-      index = index + 1;
-  }
-  const count = observers.length;
-  // Do not use `var`
-  var index = 0;
-  while (index < count) {
-      observers[index](...args);
-      index = index + 1;
-  }
-  ```
-
 * If the reference is immutable, but the value is mutable, `const` decalaration should be used:
 
   **Good:**
 
   ```js
   const query = {};
-  query.param = 'value';
-  ```
-
-  **Bad:**
-
-  ```js
-  let query = {};
   query.param = 'value';
   ```
 
@@ -1025,7 +992,7 @@ This section describes code style for [ECMAScript 2015 Language Specification](h
   **Bad:**
 
   ```js
-  var util = require('util');
+  const util = require('util');
   class Stream() {
       constructor() {
           EventEmitter.call(this);
@@ -1396,43 +1363,5 @@ This section describes code style for [ECMAScript 2015 Language Specification](h
   }
   const asyncValue = async () => 'value';
   ```
-
-[&#8593; back to TOC](#table-of-contents)
-
-## Node.js
-
-### Importing modules
-
-* Modules should be imported in the beginning of the file, after the description of the module (if present):
-
-  **Good:**
-
-  ```js
-  var http = require('http');
-  var fs = require('fs');
-  // code here
-  ```
-  **Bad:**
-
-  ```js
-  var http = require('http');
-  // code here
-  var fs = require('fs');
-  // code here
-  ```
-
-  **Exception:** This rule does not apply to modules that are imported "on demand".
-
-* Module import calls should be grouped according to the following order:
-
-    1. Standard node.js modules (i.e. fs, util, etc.).
-    2. External lib modules.
-    3. Modules of the current application.
-
-[&#8593; back to TOC](#table-of-contents)
-
-## Licence
-
-[CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
 [&#8593; back to TOC](#table-of-contents)

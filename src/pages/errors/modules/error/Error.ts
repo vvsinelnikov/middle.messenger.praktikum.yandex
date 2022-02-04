@@ -1,20 +1,18 @@
-import Block from './../../../../utils/block';
+import Block from '../../../../utils/block';
+import Link from '../../../../components/link/link';
 import template from './error.tmpl';
 import './error.css';
 
-class ErrorPage extends Block {
-  errorText: any;
-  errorNumber: any;
+interface IErrorPage {
+  errorText: string;
+  errorNumber: number;
+  link: Link;
+}
 
-  constructor(props: {
-    errorText: string;
-    errorNumber: number;
-    link: any;
-  }) {
+class ErrorPage extends Block {
+  constructor(props: IErrorPage) {
     super('div', props);
     this.props = props;
-    errorText: this.errorText;
-    errorNumber: this.errorNumber;
   }
 
   public render() {

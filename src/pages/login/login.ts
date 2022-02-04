@@ -1,17 +1,16 @@
-import Block from './../../utils/block';
-import Heading from './../../components/heading/heading'
-import Input from './../../components/input/input'
-import Button from './../../components/button/button'
-import Link from './../../components/link/link'
-import Form from './../../modules/form/form'
+import Block from '../../utils/block';
+import Heading from '../../components/heading/heading';
+import Input from '../../components/input/input';
+import Button from '../../components/button/button';
+import Link from '../../components/link/link';
+import Form from '../../modules/form/form';
 import template from './login.tmpl';
-import render from './../../utils/render';
-import FormValidator from '../../utils/form-validator'
+import render from '../../utils/render';
+import FormValidator from '../../utils/form-validator';
 // import HTTPTransport from './../../utils/http-transport';
 import '../index.css';
 import './login.css';
-import * as tempData from './../home/temp-data';
-
+import * as tempData from '../home/temp-data';
 
 const loginData = {
   className: 'login__input',
@@ -37,7 +36,7 @@ class Login extends Block {
   validator: FormValidator | undefined;
 
   constructor(props: {
-    user: object; //TODO Заменить после подключения API
+    user: object; // TODO Заменить после подключения API
     className: string;
     form: Form;
   }) {
@@ -47,18 +46,23 @@ class Login extends Block {
   }
 
   public render() {
-    return this.compile('{{{form}}}', this.props)
+    return this.compile('{{{form}}}', this.props);
   }
 }
 
 // Получить объект пользователя после авторизации и передать в компонент
 // console.log(new HTTPTransport().get('/auth/user'))
 
-const heading = new Heading({headingText: 'Вход'});
+const heading = new Heading({
+  headingText: 'Вход',
+  className: 'heading',
+});
 const inputLogin = new Input(loginData);
 const inputPassword = new Input(passwordData);
 const button = new Button({
   buttonText: 'Авторизоваться',
+  className: 'welcome__button',
+  type: 'submit',
   events: {
     click: (evt: Event) => {
       evt.preventDefault();
@@ -67,7 +71,11 @@ const button = new Button({
     },
   },
 });
-const link = new Link({linkText: 'Нет аккаунта?', href: 'register.html'});
+const link = new Link({
+  className: 'link',
+  linkText: 'Нет аккаунта?',
+  href: 'register.html',
+});
 
 const form = new Form({
   user: tempData.myUser,

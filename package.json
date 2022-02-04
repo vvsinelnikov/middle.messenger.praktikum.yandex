@@ -6,8 +6,8 @@
     "dev": "parcel static/index.html",
     "build": "parcel build static/index.html",
     "start": "node ./index.js",
-    "lint": "npx eslint .",
-    "stylelint": "npx stylelint '**/*.css'"
+    "lint": "eslint .",
+    "stylelint": "stylelint '**/*.css'"
   },
   "keywords": [],
   "author": "Vladimir Sinelnikov",

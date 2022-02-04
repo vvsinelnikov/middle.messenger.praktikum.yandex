@@ -14,7 +14,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   transition: opacity 0.25s;
-  outline: none;
 }
 
 .welcome__button_inactive {

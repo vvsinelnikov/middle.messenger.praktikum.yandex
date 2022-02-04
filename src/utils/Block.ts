@@ -1,20 +1,29 @@
 import Handlebars from 'handlebars';
-import {v4 as makeUUID} from 'uuid'
+import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
 
 class Block {
-  public props: any;
   public eventBus: () => EventBus;
-  public eventBusSource: EventBus;
-  private _element: HTMLElement;
-  private _id: number;
-  private _tagName: string;
-  private _className: string;
-  private _type: string;
-  private _href: string;
 
-  children: any;
-  buttonText: string;
+  public eventBusSource: EventBus;
+
+  public props: any;
+
+  public children: any;
+
+  public buttonText: string;
+
+  private _element: HTMLElement;
+
+  private _id: number;
+
+  private _tagName: string;
+
+  private _className: string;
+
+  private _type: string;
+
+  private _href: string;
 
   static EVENTS = {
     INIT: 'init',
@@ -23,11 +32,11 @@ class Block {
     FLOW_CDU: 'flow:component-did-update',
   };
 
-  constructor(tagName = "div", propsAndChildren: any = {
-      settings: { withInternalID: false }
+  constructor(tagName = 'div', propsAndChildren: any = {
+    settings: { withInternalID: false },
   }) {
     // if (propsAndChildren.settings.withInternalID) { this._id = makeUUID() }
-    this._id = makeUUID()
+    this._id = makeUUID();
     this.props = this._makePropsProxy({ ...propsAndChildren, __id: this._id });
     const { children, props } = this._getChildren(propsAndChildren);
     this.children = children;
@@ -65,8 +74,8 @@ class Block {
   private _createResources() {
     this._element = document.createElement(this._tagName);
     this._element.className = this._className;
-    (<HTMLButtonElement>this._element).type = this._type;
-    (<HTMLAnchorElement>this._element).href = this._href;
+    (<HTMLButtonElement> this._element).type = this._type;
+    (<HTMLAnchorElement> this._element).href = this._href;
   }
 
   public init() {
@@ -90,9 +99,9 @@ class Block {
   }
 
   private _addEvents() {
-    const {events = {}} = this.props;
+    const { events = {} } = this.props;
 
-    Object.keys(events).forEach(eventName => {
+    Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
     });
   }
@@ -107,7 +116,7 @@ class Block {
 
   // Отслеживание изменений вложенных компонентов
   public componentDidUpdate(oldProps: any, newProps: any) {
-    if (JSON.stringify(oldProps) == JSON.stringify(newProps)) { return false };
+    if (JSON.stringify(oldProps) == JSON.stringify(newProps)) { return false; }
 
     if (oldProps.buttonText !== newProps.buttonText) {
       this.buttonText = newProps.buttonText;
@@ -150,7 +159,7 @@ class Block {
     const self = this;
     return new Proxy(props, {
       set: (target, prop, value) => {
-        let oldProps = {};
+        const oldProps = {};
         Object.assign(oldProps, props);
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, props);
@@ -159,10 +168,10 @@ class Block {
       },
       get: (target, prop) => {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     });
   }
@@ -195,7 +204,7 @@ class Block {
   }
 
   // Сортировка свойств на свойства и вложенные компоненты
-  private _getChildren(propsAndChildren: {any: any}[]) {
+  private _getChildren(propsAndChildren: { any: any }[]) {
     const children: any = {};
     const props: any = {};
 
@@ -211,11 +220,11 @@ class Block {
   }
 
   public show(): void {
-    this.getContent().style.display = "block";
+    this.getContent().style.display = 'block';
   }
 
   public hide(): void {
-    this.getContent().style.display = "none";
+    this.getContent().style.display = 'none';
   }
 }
 
