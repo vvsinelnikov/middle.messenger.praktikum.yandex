@@ -2,9 +2,12 @@ import Block from '../../utils/block';
 import './link.css';
 
 interface ILink {
-  className?: string;
+  className: string;
   href: string;
   linkText: string;
+  events?: {
+    click: (evt: Event) => void
+  }
 }
 
 class Link extends Block {
@@ -15,7 +18,7 @@ class Link extends Block {
     this.linkText = props.linkText;
   }
 
-  public render(): HTMLElement {
+  public render(): DocumentFragment {
     return this.compile(this.linkText, this.props);
   }
 }

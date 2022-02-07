@@ -6,15 +6,13 @@ import Link from '../../components/link/link';
 import Form from '../../modules/form/form';
 import template from './register.tmpl';
 import render from '../../utils/render';
-import FormValidator from '../../utils/form-validator';
-// import HTTPTransport from './../../utils/http-transport';
 import '../index.css';
 import './register.css';
-import * as tempData from '../home/temp-data';
 
+// Данные для инпутов
 const emailData = {
   className: 'register__input',
-  id: 'email',
+  name: 'email',
   placeholder: 'Почта',
   type: 'email',
   maxLength: 40,
@@ -23,7 +21,7 @@ const emailData = {
 
 const loginData = {
   className: 'register__input',
-  id: 'login',
+  name: 'login',
   placeholder: 'Логин',
   type: 'text',
   minLength: 2,
@@ -33,7 +31,7 @@ const loginData = {
 
 const nameData = {
   className: 'register__input',
-  id: 'name',
+  name: 'name',
   placeholder: 'Имя',
   type: 'text',
   minLength: 2,
@@ -43,7 +41,7 @@ const nameData = {
 
 const surnameData = {
   className: 'register__input',
-  id: 'surname',
+  name: 'surname',
   placeholder: 'Фамилия',
   type: 'text',
   minLength: 2,
@@ -53,7 +51,7 @@ const surnameData = {
 
 const telData = {
   className: 'register__input',
-  id: 'tel',
+  name: 'tel',
   placeholder: 'Телефон',
   type: 'tel',
   maxLength: 40,
@@ -62,7 +60,7 @@ const telData = {
 
 const passwordData = {
   className: 'register__input',
-  id: 'password',
+  name: 'password',
   placeholder: 'Пароль',
   type: 'password',
   minLength: 2,
@@ -72,7 +70,7 @@ const passwordData = {
 
 const passwordCheckData = {
   className: 'register__input',
-  id: 'password_check',
+  name: 'password_check',
   placeholder: 'Пароль (еще раз)',
   type: 'password',
   minLength: 2,
@@ -80,38 +78,20 @@ const passwordCheckData = {
   required: 'required',
 };
 
-class Register extends Block {
-  validator: FormValidator | undefined;
-
-  constructor(props: {
-    user: object; // TODO Заменить после подключения API
-    className: string;
-    form: Form;
-  }) {
-    super('div', props);
-    this.props = props;
-    this.validator = undefined;
-  }
-
-  public render() {
-    return this.compile('{{{form}}}', this.props);
-  }
-}
-
-// Получить объект пользователя после авторизации и передать в компонент
-// console.log(new HTTPTransport().get('/auth/user'))
+// Элемены формы
+const inputEmail = new Input(emailData);
+const inputLogin = new Input(loginData);
+const inputName = new Input(nameData);
+const inputSurname = new Input(surnameData);
+const inputTel = new Input(telData);
+const inputPassword = new Input(passwordData);
+const inputPasswordCheck = new Input(passwordCheckData);
 
 const heading = new Heading({
   headingText: 'Регистрация',
   className: 'heading',
 });
-const inputEmail = new Input(emailData);
-const inputLogin = new Input(loginData);
-const inputName = new Input(nameData);
-const inputSurame = new Input(surnameData);
-const inputTel = new Input(telData);
-const inputPassword = new Input(passwordData);
-const inputPasswordCheck = new Input(passwordCheckData);
+
 const button = new Button({
   buttonText: 'Зарегистрироваться',
   className: 'welcome__button',
@@ -131,15 +111,15 @@ const link = new Link({
   href: 'login.html',
 });
 
+// Форма с элементами
 const form = new Form({
-  user: tempData.myUser,
   className: 'form',
   template,
   heading,
   inputEmail,
   inputLogin,
   inputName,
-  inputSurame,
+  inputSurname,
   inputTel,
   inputPassword,
   inputPasswordCheck,
@@ -147,15 +127,24 @@ const form = new Form({
   link,
 });
 
+// Создание класса и рендеринг страницы
+class Register extends Block {
+  constructor(props: {
+    className: string;
+    form: Form;
+  }) {
+    super('div', props);
+    this.props = props;
+  }
+
+  public render() {
+    return this.compile('{{{form}}}', this.props);
+  }
+}
+
 const register = new Register({
-  user: tempData.myUser,
   className: 'register',
   form,
 });
 render('.page', register.getContent());
 register.dispatchComponentDidMount();
-
-// Тесты
-// setTimeout(() => {button.hide()}, 800)
-// setTimeout(() => {button.show()}, 1200)
-// setTimeout(() => {button.setProps({buttonText: 'Еще раз'})}, 1500)

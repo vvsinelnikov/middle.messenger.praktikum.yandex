@@ -1,5 +1,6 @@
 // Ответ на GET /auth/user и /user/{id}
 export interface IUser {
+  // user: IUser;
   id?: number; // User id
   first_name: string; // First name
   second_name: string; // Second name
@@ -7,7 +8,7 @@ export interface IUser {
   login: string; // User login - unique
   email: string; // Email
   phone: string; // Phone
-  avatar:	string; // Avatar
+  avatar: string; // Avatar
   role?: string; // для ChatUsers
 }
 export type IUsers = Array<IUser>;
@@ -71,6 +72,7 @@ export const chatUsers: IUsers = [
 
 // Ответ на GET /chats
 export interface IChatResponse {
+  user?: IUser;
   id: number; // Chat id
   title: string; // Chat title
   avatar: string; // Chat avatar
@@ -140,7 +142,7 @@ export const chatResponses: IChatResponses = [
 ];
 
 export interface IChatMessage {
-  id:	number; // Message id
+  id: number; // Message id
   user_id: number; // User id
   chat_id: number; // Chat id
   time: string; // Message sent time
@@ -186,7 +188,7 @@ export const chatMessages: IChatMessages = [
 ];
 
 export interface IChatFile {
-  id:	number; // Message id
+  id: number; // Message id
   user_id: number; // User id
   chat_id: number; // Chat id
   time: string; // Message sent time

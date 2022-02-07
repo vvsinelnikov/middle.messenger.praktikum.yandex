@@ -1,6 +1,16 @@
-import Block from '../../../../../../../utils/block';
+import Block from '../../../../../../utils/block';
 import template from './message.tmpl';
 import './message.css';
+import { IUser } from '../../../../../../utils/interfaces';
+
+interface IMessage {
+  user: IUser;
+  className: string;
+  timeStamp: string;
+  message: string;
+  direction: string;
+  image?: string;
+}
 
 class Message extends Block {
   timeStamp: string;
@@ -11,12 +21,14 @@ class Message extends Block {
 
   direction: string;
 
-  constructor(props: any) {
+  constructor(props: IMessage) {
     super('div', props);
     this.timeStamp = props.timeStamp;
-    this.image = props.image;
     this.direction = props.direction;
     this.message = props.message;
+    if (props.image) {
+      this.image = props.image;
+    }
   }
 
   render() {
@@ -26,13 +38,20 @@ class Message extends Block {
 
     // TODO Переписать вывод изображений на <img>
     // TODO Написать логику отображения и цвета галочек
-    const params: any = {
+    const params: {
+      date: string;
+      time: string;
+      type: string;
+      message: string;
+      direction: string;
+      isRead: string;
+    } = {
       date,
       time,
       type: this.image ? 'image' : 'text',
       message: this.message,
       direction: this.direction,
-      isRead: this.direction == 'outbound' ? 'message__body_read' : '',
+      isRead: this.direction === 'outbound' ? 'message__body_read' : '',
     };
 
     return this.compile(template, params);

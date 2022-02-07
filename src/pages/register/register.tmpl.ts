@@ -4,7 +4,7 @@ const template = `
         {{{inputEmail}}}
         {{{inputLogin}}}
         {{{inputName}}}
-        {{{inputSurame}}}
+        {{{inputSurname}}}
         {{{inputTel}}}
         {{{inputPassword}}}
         {{{inputPasswordCheck}}}

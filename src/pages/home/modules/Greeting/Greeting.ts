@@ -2,13 +2,14 @@ import Block from '../../../../utils/Block';
 import './greeting.css';
 
 class Greeting extends Block {
-  constructor(props: any) {
+  constructor(props: {
+    className: string
+  }) {
     super('p', props);
   }
 
-  render() {
+  render(): DocumentFragment {
     return this.compile('Выберите чат, чтобы отправить сообщение', this.props);
-    // return 'Выберите чат, чтобы отправить сообщение'
   }
 }
 

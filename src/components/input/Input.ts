@@ -5,13 +5,12 @@ import './input.css';
 
 interface IInput {
   className: string;
-  headingText: string;
-  id: number;
-  placeholder: string;
+  name: string;
   type: string;
+  placeholder?: string;
   minLength?: number;
   maxLength?: number;
-  required?: boolean;
+  required?: string;
   disabled?: string;
 }
 
@@ -20,7 +19,7 @@ class Input extends Block {
     super('div', props);
   }
 
-  public render(): HTMLElement {
+  public render(): DocumentFragment {
     return this.compile(Handlebars.compile(template)(this.props), {});
   }
 }

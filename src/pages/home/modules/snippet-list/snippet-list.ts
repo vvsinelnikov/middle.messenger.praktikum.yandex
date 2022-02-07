@@ -1,27 +1,30 @@
 import Snippet from './snippet/snippet';
 import Block from '../../../../utils/block';
-import * as tempData from '../../temp-data';
+import { IUser, IChatResponse } from '../../../../utils/interfaces';
 
 // TODO Добавить фото
 class SnippetList extends Block {
-  private snippetList: any;
+  snippetListing: { [index: number]: Snippet };
 
-  private activeSnippet: any;
+  activeSnippet: Snippet | undefined;
 
-  currentUser: tempData.IUser;
+  user: IUser;
 
-  constructor(props: any) {
+  constructor(props: {
+    className: string;
+    user: IUser,
+  }) {
     super('ul', props);
-    this.currentUser = props.user;
-    this.snippetList = {};
+    this.user = props.user;
+    this.snippetListing = {};
   }
 
-  public render() {
+  public render(): DocumentFragment {
     return this.compile('', this.props);
   }
 
-  public renderSnippet(snippetData: tempData.IChatResponse): void {
-    // добавить ссылку сниппету, который был активным до создания нового
+  public renderSnippet(snippetData: IChatResponse): void {
+    // Добавить ссылку сниппету, который был активным до создания нового
     const clearActiveSnippet = () => {
       if (this.activeSnippet) {
         this.activeSnippet.element.classList.remove('snippet_active');
@@ -37,21 +40,22 @@ class SnippetList extends Block {
       }
     };
 
-    if (!Object.keys(this.snippetList).includes(String(snippetData.id))) {
+    // Создать новый сниппет
+    if (!Object.keys(this.snippetListing).includes(String(snippetData.id))) {
       clearActiveSnippet();
       const snippet = new Snippet({
-        user: this.currentUser,
+        user: this.user,
         className: 'snippet snippet_active',
         snippetData,
       });
       this.element.prepend(snippet.getContent());
       snippet.dispatchComponentDidMount();
-      this.snippetList[snippetData.id] = snippet;
+      this.snippetListing[snippetData.id] = snippet;
       this.activeSnippet = snippet;
     } else {
       // удалить существующий сниппет и отрендерить его заново первым
-      this.snippetList[snippetData.id].element.remove();
-      delete this.snippetList[snippetData.id];
+      this.snippetListing[snippetData.id].element.remove();
+      delete this.snippetListing[snippetData.id];
 
       this.renderSnippet(snippetData);
 

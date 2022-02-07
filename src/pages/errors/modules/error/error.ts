@@ -1,12 +1,12 @@
 import Block from '../../../../utils/block';
-import Link from '../../../../components/link/link';
 import template from './error.tmpl';
 import './error.css';
 
 interface IErrorPage {
+  className: string;
   errorText: string;
   errorNumber: number;
-  link: Link;
+  link: Block;
 }
 
 class ErrorPage extends Block {

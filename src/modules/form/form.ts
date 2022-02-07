@@ -4,33 +4,31 @@ import './form.css';
 
 interface IForm {
   className?: string;
-  user?: object; // TODO Заменить после подключения API
   template?: string;
-  heading?: HTMLHeadingElement | string;
-  inputLogin?: HTMLInputElement;
-  inputPassword?: HTMLInputElement;
-  button?: HTMLButtonElement;
-  link?: HTMLAnchorElement;
-  validator?: FormValidator | undefined;
+  heading?: Block;
+  inputLogin?: Block;
+  inputPassword?: Block;
+  inputPasswordCheck?: Block;
+  inputEmail?: Block;
+  inputName?: Block;
+  inputSurname?: Block;
+  inputDisplayName?: Block;
+  inputTel?: Block;
+  button?: Block;
+  link?: Block;
 }
 
 class Form extends Block {
-  validator: FormValidator | undefined;
+  validator: FormValidator;
 
   constructor(props: IForm) {
     super('form', props);
     this.props = props;
-    this.validator = undefined;
   }
 
-  public render(): HTMLElement {
-    const options: IForm = {};
-    options.heading = `<h1>${this.props.heading}</h1>`;
-    Object.keys(this.props).forEach((key: string) => {
-      options[key] = this.props.key;
-    });
-
-    return this.compile(this.props.template, options);
+  public render(): DocumentFragment {
+    const template = this.props.template ? this.props.template : '';
+    return this.compile(template, this.props);
   }
 
   public enableValidation(): void {
@@ -51,11 +49,13 @@ class Form extends Block {
   public sendForm(): void {
     const inputs: NodeListOf<HTMLInputElement> = this.getContent().querySelectorAll('.input__field');
     if ((<HTMLFormElement> this.element).reportValidity()) {
-      const result: any = {};
+      const result: { [index: string]: string } = {};
 
       Array.from(inputs).map((i: HTMLInputElement): void => {
         const input: HTMLInputElement | null = this.getContent().querySelector(`#${i.id}`);
-        if (input) { result[input.id] = input.value; }
+        if (input) {
+          result[input.name] = input.value;
+        }
       });
       console.log(result);
     }
