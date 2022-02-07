@@ -23,11 +23,8 @@ https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex/pull/1
 * [Figma](https://www.figma.com/file/gloJZbe2t9pAgvwUNcxusy/MessageMe?node-id=0%3A1/)
 
 ### TODO
-* TypeScript: Вынести интерфейсы
-* TypeScript: Сократить использование типов any
 * Переделать валидацию форм на regexp + focus/blur
-* Chat: Добавить публикацию сообщений
-* Chat: Переписать вывод изображений на img
+* ChatList: Добавить публикацию сообщений
 * Chat: Дописать логику постинга даты, вынести ее рендеринг из компонента Message
 * Chat: Добавить методы для изменения статуса прочтения isRead
 * Snippet: Переписать вывод изображений на img
@@ -38,5 +35,3 @@ https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex/pull/1
 * Сверстать всплывающие окна
 * Сделать верстку адаптивной
 * Добавить микроанимации
-=======
->>>>>>> main

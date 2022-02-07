@@ -3,7 +3,6 @@ package-lock.json
 .parcel-cache
 .idea
 
-
 # dependencies
 /node_modules
 /.pnp

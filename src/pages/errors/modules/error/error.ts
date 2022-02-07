@@ -15,7 +15,7 @@ class ErrorPage extends Block {
     this.props = props;
   }
 
-  public render() {
+  public render(): DocumentFragment {
     return this.compile(template, this.props);
   }
 }
