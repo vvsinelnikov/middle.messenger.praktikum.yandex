@@ -1,13 +1,11 @@
-# Middle Frontend
-Frontend для чата. Проект использует ванильный JS-код.
-Технологии:
-* cборщик Parcel
-* шаблонизатор Handlebars
-* PostCSS
-* NodeJS + Express
+# middle.messenger.praktikum.yandex
+ Самостоятельный проект
+https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex/pull/4
 
-## Ссылки
+Пройдено:
+https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex/pull/1
 
+<<<<<<< HEAD
 * [Netlify](https://boring-jennings-3032fe.netlify.app/)
 * [Github](https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex/)
 * [Pull Request]()
@@ -40,3 +38,5 @@ Frontend для чата. Проект использует ванильный J
 * Сверстать всплывающие окна
 * Сделать верстку адаптивной
 * Добавить микроанимации
+=======
+>>>>>>> main
