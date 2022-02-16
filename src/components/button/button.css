@@ -1,0 +1,27 @@
+.welcome__button {
+  background: var(--primary-blue);
+  border-radius: 8px;
+  color: #fff;
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-normal);
+  line-height: var(--font-height-normal);
+  text-align: center;
+  border: 0;
+  width: 100%;
+  height: 40px;
+  margin-top: 20px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.25s;
+}
+
+.welcome__button_inactive {
+  background: var(--dark-gray-background);
+  cursor: auto;
+}
+
+.welcome__button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

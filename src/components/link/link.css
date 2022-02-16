@@ -1,0 +1,10 @@
+.link {
+  display: block;
+  color: var(--primary-blue);
+  font-weight: var(--font-weight-normal);
+  font-size: 11px;
+  line-height: 11px;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 17px;
+}
