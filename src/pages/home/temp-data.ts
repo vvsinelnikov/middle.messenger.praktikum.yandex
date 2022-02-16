@@ -1,17 +1,6 @@
+import { IUser, IChatResponse } from '../../utils/interfaces'
+
 // Ответ на GET /auth/user и /user/{id}
-export interface IUser {
-  // user: IUser;
-  id?: number; // User id
-  first_name: string; // First name
-  second_name: string; // Second name
-  display_name?: string // Display name
-  login: string; // User login - unique
-  email: string; // Email
-  phone: string; // Phone
-  avatar: string; // Avatar
-  role?: string; // для ChatUsers
-}
-export type IUsers = Array<IUser>;
 export const myUser: IUser = {
   id: 256,
   first_name: 'Вова',
@@ -22,7 +11,7 @@ export const myUser: IUser = {
   phone: '8(995)-211-37-89',
   avatar: '/path/to/avatar.jpg',
 };
-export const users: IUsers = [
+export const users: IUser[] = [
   {
     id: 123,
     first_name: 'Petya',
@@ -45,7 +34,7 @@ export const users: IUsers = [
   },
 ];
 
-export const chatUsers: IUsers = [
+export const chatUsers: IUser[] = [
   {
     id: 256,
     first_name: 'Вова',
@@ -71,20 +60,7 @@ export const chatUsers: IUsers = [
 ];
 
 // Ответ на GET /chats
-export interface IChatResponse {
-  user?: IUser;
-  id: number; // Chat id
-  title: string; // Chat title
-  avatar: string; // Chat avatar
-  unread_count: number; // Number of unread messages in chat for current user
-  last_message: {
-    user: IUser;
-    time: string; // Message timestamp
-    content: string | number; // Message content
-  };
-}
-export type IChatResponses = Array<IChatResponse>;
-export const chatResponses: IChatResponses = [
+export const chatResponses: IChatResponse[] = [
   {
     id: 256,
     title: 'my-chat',
@@ -150,8 +126,7 @@ export interface IChatMessage {
   content: string | number; // Message content (message text for messages and resourceId for files)
   file?: object;
 }
-export type IChatMessages = Array<IChatMessage>;
-export const chatMessages: IChatMessages = [
+export const chatMessages: IChatMessage[] = [
   {
     id: 123,
     user_id: 2561,
@@ -196,8 +171,8 @@ export interface IChatFile {
   content: string | number; // Message content (message text for messages and resourceId for files)
   file?: object;
 }
-export type IChatFiles = Array<IChatFile>;
-export const chatFiles: IChatFiles = [
+
+export const chatFiles: IChatFile[] = [
   {
     id: 124,
     user_id: 256,

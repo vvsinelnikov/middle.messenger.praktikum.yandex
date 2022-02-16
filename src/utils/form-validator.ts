@@ -28,12 +28,14 @@ export default class FormValidator {
   ) {
     this._formElement = formElement;
     this._inputSelector = inputSelector;
-    this._submitButton = formElement.querySelector(submitButtonSelector);
+    this._submitButton = formElement.parentElement ?
+        formElement.parentElement.querySelector(submitButtonSelector) :
+        formElement.querySelector(submitButtonSelector);
     this._inactiveButtonClass = inactiveButtonClass;
     this._errorClass = errorClass;
   }
 
-  enableValidation() {
+  enableValidation(): void {
     this._inputsList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector),
     );
@@ -44,7 +46,7 @@ export default class FormValidator {
     this.checkSubmitButton();
   }
 
-  _isValid(inputElement: HTMLFormElement) {
+  _isValid(inputElement: HTMLFormElement): void {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement);
     } else {
@@ -53,19 +55,18 @@ export default class FormValidator {
     this.checkSubmitButton();
   }
 
-  _showInputError(inputElement: HTMLFormElement) {
-    // inputElement.classList.add(this._errorClass);
-    const errorElement: HTMLElement | null = document.querySelector(`#${inputElement.id}-error`);
+  _showInputError(inputElement: HTMLFormElement): void {
+    const errorElement: HTMLElement | null = document.querySelector(`span[name="${inputElement.name}-error"]`);
     if (errorElement) { errorElement.textContent = inputElement.validationMessage; }
   }
 
-  _hideInputError(inputElement: HTMLFormElement) {
+  _hideInputError(inputElement: HTMLFormElement): void {
     inputElement.classList.remove(this._errorClass);
-    const errorElement = document.querySelector(`#${inputElement.id}-error`);
+    const errorElement: HTMLElement | null = document.querySelector(`span[name="${inputElement.name}-error"]`);
     if (errorElement) { errorElement.textContent = ''; }
   }
 
-  checkSubmitButton() {
+  checkSubmitButton(): void {
     if (!this._inputsList.every((element: HTMLFormElement) => element.validity.valid)) {
       for (const i of this._inputsList) {
         if (!i.validity.valid) { this._showInputError(i); }
@@ -80,7 +81,7 @@ export default class FormValidator {
     }
   }
 
-  clearValidation() {
+  clearValidation(): void {
     this._inputsList.forEach((element) => this._hideInputError(element));
     this.checkSubmitButton();
   }

@@ -19,6 +19,8 @@ class ChatList extends Block {
 
   sendCallback: (evt: Event) => void;
 
+  static __instance: ChatList;
+
   constructor(props: {
     className: 'chat';
     user: IUser;
@@ -27,6 +29,10 @@ class ChatList extends Block {
     avatar: string;
     chatId?: number;
   }) {
+    if (ChatList.__instance) {
+      return ChatList.__instance;
+    }
+
     super('div', props);
     this.currentUser = props.user;
     this.firstName = props.firstName;
@@ -39,6 +45,8 @@ class ChatList extends Block {
         console.log({ chatID: this.chatId, message: message.value });
       }
     };
+
+    ChatList.__instance = this;
   }
 
   public render(): DocumentFragment {

@@ -10,13 +10,21 @@ class SnippetList extends Block {
 
   user: IUser;
 
+  static __instance: SnippetList;
+
   constructor(props: {
     className: string;
     user: IUser,
   }) {
+    if (SnippetList.__instance) {
+      return SnippetList.__instance;
+    }
+
     super('ul', props);
     this.user = props.user;
     this.snippetListing = {};
+
+    SnippetList.__instance = this;
   }
 
   public render(): DocumentFragment {

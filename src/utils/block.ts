@@ -3,7 +3,7 @@ import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
 import { IBlock } from './interfaces';
 
-class Block {
+abstract class Block {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',

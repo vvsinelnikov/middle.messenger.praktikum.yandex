@@ -10,8 +10,8 @@ interface IInput {
   placeholder?: string;
   minLength?: number;
   maxLength?: number;
-  required?: string;
-  disabled?: string;
+  required?: boolean | string;
+  disabled?: boolean | string;
 }
 
 class Input extends Block {

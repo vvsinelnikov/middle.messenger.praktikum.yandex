@@ -10,7 +10,16 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
-    "typeRoots": [ "./types", "./node_modules/@types"]
+    "typeRoots": [ "./types", "./node_modules/@types"],
+
+    "allowUnreachableCode": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "strictPropertyInitialization": true,
+    "types": ["node", "jest", "express"],
   },
-  "exclude": ["node_modules", "types", ".cache"]
+  "include": ["src/**/*"]
+//  "exclude": ["node_modules", "types", ".cache"]
 }

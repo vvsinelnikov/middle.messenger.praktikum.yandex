@@ -9,7 +9,7 @@ import render from '../../utils/render';
 import '../index.css';
 import './home.css';
 import * as tempData from './temp-data';
-import { IUser } from '../../utils/interfaces';
+import { IUser, IChatResponse } from '../../utils/interfaces';
 
 // Получить объект пользователя после авторизации и передать в компонент
 // console.log('fetch /auth/user')
@@ -90,12 +90,12 @@ class Home extends Block {
   //     this.eventBusSource.on(Home.EVTS.FLOW_CHAT, this._renderMessage.bind(this));
   // }
 
-  public renderSnippet(snippet: tempData.IChatResponse) {
+  public renderSnippet(snippet: IChatResponse) {
     this.snippetList.renderSnippet(snippet);
   }
 
   // Создание и отрисовка окна чата
-  public renderChat(chatData: tempData.IChatResponse): Chat {
+  public renderChat(chatData: IChatResponse): Chat {
     if (this.props.greeting) { this.greeting.element.style.display = 'none'; }
     this.chatList.element.style.display = 'flex';
 
@@ -116,7 +116,7 @@ class Home extends Block {
   }
 
   // Отправка сообщения в чат
-  public renderMessage(chat: Chat, chatData: tempData.IChatResponse) {
+  public renderMessage(chat: Chat, chatData: IChatResponse) {
     chat.renderMessage(chatData);
   }
 

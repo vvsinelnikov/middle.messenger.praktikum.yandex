@@ -51,11 +51,8 @@ class Form extends Block {
     if ((<HTMLFormElement> this.element).reportValidity()) {
       const result: { [index: string]: string } = {};
 
-      Array.from(inputs).map((i: HTMLInputElement): void => {
-        const input: HTMLInputElement | null = this.getContent().querySelector(`#${i.id}`);
-        if (input) {
-          result[input.name] = input.value;
-        }
+      Array.from(inputs).map((input: HTMLInputElement): void => {
+        result[input.name] = input.value;
       });
       console.log(result);
     }

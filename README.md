@@ -23,8 +23,9 @@ https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex/pull/1
 * [Figma](https://www.figma.com/file/gloJZbe2t9pAgvwUNcxusy/MessageMe?node-id=0%3A1/)
 
 ### TODO
+* TypeScript: Перейти на Namespace классов
+* TypeScript: Отрефакторить типы (Partial, Required, etc)
 * Переделать валидацию форм на regexp + focus/blur
-* ChatList: Добавить публикацию сообщений
 * Chat: Дописать логику постинга даты, вынести ее рендеринг из компонента Message
 * Chat: Добавить методы для изменения статуса прочтения isRead
 * Snippet: Переписать вывод изображений на img

@@ -12,8 +12,8 @@ export interface IBlock {
   placeholder?: string; // Input
   minLength?: number; // Input
   maxLength?: number; // Input
-  required?: string; // Input
-  disabled?: string; // Input
+  required?: boolean | string; // Input
+  disabled?: boolean | string; // Input
   href?: string; // Link
   linkText?: string; // Link
 
@@ -48,10 +48,6 @@ export interface IBlock {
   message?: string,
   direction? : string;
   image?: string;
-}
-
-export interface ISnippetList {
-
 }
 
 // Ответ на GET /chats
