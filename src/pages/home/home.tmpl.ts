@@ -1,6 +1,6 @@
 const template = `
     <div class="home__left">
-        <a href="profile.html" class="home__nav">Профиль</a>
+        <a href="profile" class="home__nav">Профиль</a>
         <div class="home__searchbox">
             <input class="searchbox" placeholder="Поиск" type="text">
         </div>

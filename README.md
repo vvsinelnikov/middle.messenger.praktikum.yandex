@@ -24,6 +24,7 @@ https://github.com/vvsinelnikov/middle.messenger.praktikum.yandex/pull/1
 
 ### TODO
 * TypeScript: Перейти на Namespace классов
+* TypeScript: добавить strictPropertyInitialization и noUncheckedIndexedAccess
 * TypeScript: Отрефакторить типы (Partial, Required, etc)
 * Переделать валидацию форм на regexp + focus/blur
 * Chat: Дописать логику постинга даты, вынести ее рендеринг из компонента Message

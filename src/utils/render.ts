@@ -1,7 +1,7 @@
-function render(selector : string, content : HTMLElement): void {
+function render(selector : string, content : HTMLElement): HTMLElement | void {
   const element: HTMLElement | null = document.querySelector(selector);
   if (element) {
-    element.appendChild(content);
+    return element.appendChild(content);
   }
 }
 

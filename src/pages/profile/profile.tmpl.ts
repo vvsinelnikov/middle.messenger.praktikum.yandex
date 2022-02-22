@@ -1,11 +1,11 @@
 const template = `
     <div class="profile__left">
-        <a href="home.html" class="profile__home-button"></a>
-    </div>    
+        <a href="home" class="profile__home-button"></a>
+    </div>
     <div class="profile__right">
         <div class="profile__avatar"></div>
         {{{heading}}}
-        {{{form}}}            
+        {{{form}}}
         <nav class="profile__entry profile__entry_column">
             {{{linkEditProfile}}}
             {{{linkEditPassword}}}

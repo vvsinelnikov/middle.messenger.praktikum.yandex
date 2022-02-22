@@ -7,7 +7,7 @@ const METHODS = {
 
 const PROTOCOL = 'https';
 const BASE_URL = '';
-// const BASE_URL = 'ya-praktikum.tech/api/v2'
+// const BASE_URL = 'ya-praktikum.tech/'
 
 function queryStringify(data: number[]) {
   let a = '?';
@@ -18,6 +18,12 @@ function queryStringify(data: number[]) {
 }
 
 class HTTPTransport {
+  url: string;
+
+  constructor(url: string) {
+    this.url = `${PROTOCOL}://${BASE_URL}/${url}`
+  }
+
   get = (url: string, options: any = {}) => {
     url = `${PROTOCOL}://${BASE_URL}${url}`;
     if (options.hasOwnProperty('data')) {
@@ -28,17 +34,17 @@ class HTTPTransport {
   };
 
   post = (url: string, options: any = {}) => {
-    url = `${PROTOCOL}://${BASE_URL}${url}`;
+    url = this.url + url;
     return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   };
 
   put = (url: string, options: any = {}) => {
-    url = `${PROTOCOL}://${BASE_URL}${url}`;
+    url = this.url + url;
     return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   };
 
   delete = (url: string, options: any = {}) => {
-    url = `${PROTOCOL}://${BASE_URL}${url}`;
+    url = this.url + url;
     return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   };
 
