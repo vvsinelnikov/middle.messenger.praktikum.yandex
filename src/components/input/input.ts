@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Block from '../../utils/block';
+import Block from '../../services/block';
 import template from './input.tmpl';
 import './input.css';
 

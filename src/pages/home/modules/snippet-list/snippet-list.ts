@@ -1,5 +1,5 @@
 import Snippet from './snippet/snippet';
-import Block from '../../../../utils/block';
+import Block from '../../../../services/block';
 import { IUser, IChatResponse } from '../../../../utils/interfaces';
 
 // TODO Добавить фото

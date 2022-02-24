@@ -1,23 +1,14 @@
-import ErrorPage from './modules/error/error';
-import Link from '../../components/link/link';
-import render from '../../utils/render';
+import Error from './modules/error/error';
 import '../index.css';
 
-function errorPage500() {
-  const link = new Link({
-    className: 'link',
-    linkText: 'Назад к чатам',
-    href: '/',
-  });
-
-  const error = new ErrorPage({
-    className: 'error',
-    errorText: 'Мы уже фиксим',
-    errorNumber: 500,
-    link,
-  });
-  render('.page', error.getContent());
-  error.dispatchComponentDidMount();
+class Error500 extends Error {
+  constructor() {
+    super({
+      className: 'error',
+      errorText: 'Мы уже фиксим',
+      errorNumber: 500,
+    });
+  }
 };
 
-export default errorPage500;
+export default Error500;

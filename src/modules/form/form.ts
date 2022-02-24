@@ -1,5 +1,5 @@
-import Block from '../../utils/block';
-import FormValidator from '../../utils/form-validator';
+import Block from '../../services/block';
+import FormValidator from './form-validator';
 import './form.css';
 
 interface IForm {
@@ -20,6 +20,7 @@ interface IForm {
 
 class Form extends Block {
   validator: FormValidator;
+  linkEditProfile: any;
 
   constructor(props: IForm) {
     super('form', props);

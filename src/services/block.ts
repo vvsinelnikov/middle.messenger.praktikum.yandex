@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './event-bus';
-import { IBlock } from './interfaces';
+import { IBlock } from '../utils/interfaces';
 
 abstract class Block {
   static EVENTS = {
@@ -29,8 +29,6 @@ abstract class Block {
 
   children: { [index: string]: IBlock };
 
-  // eventBusSource: EventBus;
-
   eventBus: () => EventBus;
 
   constructor(tagName = 'div', propsAndChildren: IBlock) {
@@ -45,7 +43,6 @@ abstract class Block {
     this._href = propsAndChildren.href;
 
     const eventBus = new EventBus();
-    // this.eventBusSource = eventBus; // TODO Отрефакторить
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -58,7 +55,17 @@ abstract class Block {
     }
 
     if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
-      Object.assign(this.props, nextProps);
+      const { children, props } = this._getChildren(nextProps)
+
+      if (Object.values(children).length) {
+        Object.assign(this.children, children);
+      }
+      if (Object.values(props).length) {
+        Object.assign(this.props, props);
+      }
+
+      // Было так, похже из вебинара заменено кодом выше
+      // Object.assign(this.props, nextProps);
     }
   };
 
@@ -123,6 +130,7 @@ abstract class Block {
     if (!response) {
       return;
     }
+
     this._render();
   }
 

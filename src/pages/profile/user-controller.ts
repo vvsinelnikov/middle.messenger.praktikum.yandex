@@ -1,8 +1,11 @@
-import UserAPI from '../../api/user-api';
+import userAPI from '../../api/user-api';
+import store from '../../services/store/store';
 
-class UserController {
+export default new class UserController {
     public getUser() {
-        UserAPI.getUser()
-            .then(data => store.set('user', data);
-    }
-}
+        userAPI.getUser()
+            .then((data: any) => {
+                store.set('user', data);
+            })
+    };
+};

@@ -1,5 +1,5 @@
-import Route from './route';
-import { IBlock } from './interfaces';
+import Route from '../../services/router/route';
+import Block from '../block'
 
 export default class Router {
   static __instance: Router;
@@ -21,8 +21,8 @@ export default class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, block: () => IBlock): Router {
-    const route = new Route(pathname, block, {rootQuery: this._rootQuery});
+  use(pathname: string, block: typeof Block, props?: any): Router {
+    const route = new Route(pathname, block, {rootQuery: this._rootQuery, ...props});
 
     this.routes.push(route);
 

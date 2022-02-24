@@ -1,4 +1,4 @@
-import Block from '../../../../../../utils/block';
+import Block from '../../../../../../services/block';
 import template from './message.tmpl';
 import './message.css';
 import { IUser } from '../../../../../../utils/interfaces';

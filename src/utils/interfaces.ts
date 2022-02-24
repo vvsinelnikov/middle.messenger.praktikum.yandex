@@ -17,10 +17,14 @@ export interface IBlock {
   href?: string; // Link
   linkText?: string; // Link
 
+  form?: IBlock;
   heading?: IBlock;
   input?: IBlock;
   link?: IBlock;
   button?: IBlock;
+  linkEditProfile?: IBlock;
+  linkEditPassword?: IBlock;
+  linkLogout?: IBlock;
   greeting? : IBlock;
   snippetList?: IBlock;
   snippet?: IBlock;

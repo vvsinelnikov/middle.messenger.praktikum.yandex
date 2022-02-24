@@ -1,17 +1,21 @@
-import Block from '../../../../utils/block';
+import Block from '../../../../services/block';
+import Link from '../../../../components/link/link';
 import template from './error.tmpl';
 import './error.css';
 
-interface IErrorPage {
-  className: string;
-  errorText: string;
-  errorNumber: number;
-  link: Block;
-}
+class Error extends Block {
+  static link = new Link({
+    className: 'link',
+    linkText: 'Назад к чатам',
+    href: '/',
+  });
 
-class ErrorPage extends Block {
-  constructor(props: IErrorPage) {
-    super('div', props);
+  constructor(props: {
+    className: string;
+    errorText: string;
+    errorNumber: number,
+  }) {
+    super('div', {link: Error.link, ...props});
     this.props = props;
   }
 
@@ -20,4 +24,4 @@ class ErrorPage extends Block {
   }
 }
 
-export default ErrorPage;
+export default Error;

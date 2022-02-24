@@ -1,4 +1,4 @@
-import Block from '../../../../utils/block';
+import Block from '../../../../services/block';
 import Chat from './chat/chat';
 import template from './chat/chat.tmpl';
 import { IUser, IChatResponse } from '../../../../utils/interfaces';

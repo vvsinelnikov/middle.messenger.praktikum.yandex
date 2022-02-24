@@ -1,4 +1,4 @@
-import Block from '../../utils/block';
+import Block from '../../services/block';
 import './heading.css';
 
 class Heading extends Block {

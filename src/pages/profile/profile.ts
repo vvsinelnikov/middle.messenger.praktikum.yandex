@@ -1,4 +1,4 @@
-import Block from '../../utils/block';
+import Block from '../../services/block';
 import Heading from '../../components/heading/heading';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
@@ -6,14 +6,22 @@ import Link from '../../components/link/link';
 import Form from '../../modules/form/form';
 import templatePage from './profile.tmpl';
 import template from './form.tmpl';
-import render from '../../utils/render';
 import '../index.css';
 import './profile.css';
-import connect from '../../utils/connect';
+import connect from '../../services/store/connect';
+import userController from './user-controller'
+import store, { StoreEvents } from '../../services/store/store';
 
-function profilePage() {
-// Данные для инпутов
-  const emailData = {
+// Создание класса и рендеринг страницы
+class Profile extends Block {
+  // static heading = new Heading({
+  //   headingText: store.getState().user.name,
+  //   // headingText: 'Иван',
+  //   className: 'heading',
+  // });
+
+  // Элементы форм
+  static inputEmail = new Input({
     className: 'profile__field',
     name: 'email',
     placeholder: 'pochta@yandex.ru',
@@ -21,9 +29,8 @@ function profilePage() {
     maxLength: 40,
     required: 'required',
     disabled: 'disabled',
-  };
-
-  const loginData = {
+  });
+  static inputLogin = new Input({
     className: 'profile__field',
     name: 'login',
     placeholder: 'ivanivanov',
@@ -32,9 +39,8 @@ function profilePage() {
     maxLength: 40,
     required: 'required',
     disabled: 'disabled',
-  };
-
-  const nameData = {
+  });
+  static inputName = new Input({
     className: 'profile__field',
     name: 'name',
     placeholder: 'Иван',
@@ -43,9 +49,8 @@ function profilePage() {
     maxLength: 40,
     required: 'required',
     disabled: 'disabled',
-  };
-
-  const surnameData = {
+  });
+  static inputSurname = new Input({
     className: 'profile__field',
     name: 'surname',
     placeholder: 'Иванов',
@@ -54,9 +59,8 @@ function profilePage() {
     maxLength: 40,
     required: 'required',
     disabled: 'disabled',
-  };
-
-  const displayData = {
+  });
+  static inputDisplayName = new Input({
     className: 'profile__field',
     name: 'displayName',
     placeholder: 'Иван',
@@ -65,9 +69,8 @@ function profilePage() {
     maxLength: 40,
     required: 'required',
     disabled: 'disabled',
-  };
-
-  const telData = {
+  });
+  static inputTel = new Input({
     className: 'profile__field',
     name: 'tel',
     placeholder: '+7 (909) 967 30 30',
@@ -75,134 +78,126 @@ function profilePage() {
     maxLength: 40,
     required: 'required',
     disabled: 'disabled',
-  };
-
-// Элемены формы
-  const inputEmail = new Input(emailData);
-  const inputLogin = new Input(loginData);
-  const inputName = new Input(nameData);
-  const inputSurname = new Input(surnameData);
-  const inputDisplayName = new Input(displayData);
-  const inputTel = new Input(telData);
-
-  const heading = new Heading({
-    headingText: 'Иван',
-    className: 'heading',
   });
 
-// Кнопка сохранения
-  const button = new Button({
+  // Форма
+  static form = new Form({
+    className: 'profile__form',
+    template,
+    inputEmail: Profile.inputEmail,
+    inputLogin: Profile.inputLogin,
+    inputName: Profile.inputName,
+    inputSurname: Profile.inputSurname,
+    inputDisplayName: Profile.inputDisplayName,
+    inputTel: Profile.inputTel,
+  })
+
+  // Кнопка сохранения
+  static button = new Button({
     buttonText: 'Сохранить',
     className: 'welcome__button',
     type: 'submit',
     events: {
       click: (evt: Event) => {
         evt.preventDefault();
-        form.enableValidation();
-        form.sendForm();
+        Profile.form.enableValidation();
+        Profile.form.sendForm();
       },
     },
   });
-
-// Кнопки-ссылки управления
-  const linkEditProfile = new Link({
+  // Кнопки-ссылки управления
+  static linkEditProfile = new Link({
     className: 'link',
     linkText: 'Изменить данные',
-    href: '#',
+    href: '/',
     events: {
       click: (evt: Event) => {
         evt.preventDefault();
-        profile.editProfile();
+        Profile.editProfile();
       },
     },
   });
-
-  const linkEditPassword = new Link({
+  static linkEditPassword = new Link({
     className: 'link',
     linkText: 'Изменить пароль',
-    href: '#',
+    href: '/',
     // TODO Сделать попап
   });
-
-  const linkLogout = new Link({
+  static linkLogout = new Link({
     className: 'link',
     linkText: 'Выйти',
     href: '/',
   });
 
-// Форма с элементами
-  const form = new Form({
-    className: 'profile__form',
-    template,
-    inputEmail,
-    inputLogin,
-    inputName,
-    inputSurname,
-    inputDisplayName,
-    inputTel,
-  });
+  static editProfile = (): void => {
+    Profile.linkEditProfile.hide();
+    Profile.linkEditPassword.hide();
+    Profile.linkLogout.hide();
+    Profile.button.show();
+    Profile.inputEmail.setProps({ disabled: false });
+    Profile.inputLogin.setProps({ disabled: false });
+    Profile.inputName.setProps({ disabled: false });
+    Profile.inputSurname.setProps({ disabled: false });
+    Profile.inputDisplayName.setProps({ disabled: false });
+    Profile.inputTel.setProps({ disabled: false });
+  };
 
-// Создание класса и рендеринг страницы
-  class Profile extends Block {
-    constructor(props: {
-      className: string;
-      heading: Heading
-      form: Form
-      linkEditProfile: Link
-      linkEditPassword: Link
-      linkLogout: Link
-      button: Button
-      editProfile: () => void
-    }) {
-      super('div', props);
-      this.props = props;
-      if (props.editProfile) {
-        this.editProfile = props.editProfile;
-      }
+  static __instance: Profile;
+  userController: any;
+
+  constructor(props) {
+    if (Profile.__instance) {
+      return Profile.__instance;
     }
 
-    public render() {
-      return this.compile(templatePage, this.props);
-    }
+    super('div', {
+      className: 'profile',
+      // heading: Profile.heading,
+      form: Profile.form,
+      button: Profile.button,
+      linkEditProfile: Profile.linkEditProfile,
+      linkEditPassword: Profile.linkEditPassword,
+      linkLogout: Profile.linkLogout,
+    });
 
-    public editProfile(): void {
-      return this.editProfile();
-    }
+    // Уже есть в connect, здесь больше не нужно
+    // store.on(StoreEvents.Updated, () => {
+    //   this.setProps({...store.getState()});
+    // });
+
+    this.props = props
+    this.heading = new Heading({
+      headingText: this.props.user.name,
+      className: 'heading',
+    })
+
+    this.setProps({
+      heading: this.heading,
+    })
+
+    userController.getUser();
+
+    Profile.button.hide();
+
+    Profile.__instance = this;
   }
 
-  const profile = new Profile({
-    className: 'profile',
-    heading,
-    form,
-    linkEditProfile,
-    linkEditPassword,
-    linkLogout,
-    button,
-    editProfile: (): void => {
-      linkEditProfile.hide();
-      linkEditPassword.hide();
-      linkLogout.hide();
-      button.show();
-      inputEmail.setProps({ disabled: false });
-      inputLogin.setProps({ disabled: false });
-      inputName.setProps({ disabled: false });
-      inputSurname.setProps({ disabled: false });
-      inputDisplayName.setProps({ disabled: false });
-      inputTel.setProps({ disabled: false });
-    },
-  });
-  render('.page', profile.getContent());
-  profile.dispatchComponentDidMount();
-  button.hide();
-}
+  public render() {
+    return this.compile(templatePage, {});
+  }
 
-export default profilePage;
+  public editProfile(): void {
+    return this.editProfile();
+  }
+};
 
-// function mapUserToProps(state: any) {
-//   return {
-//     name: state.user.name,
-//     avatar: state.user.avatar,
-//   };
-// }
-//
-// export default connect(profilePage.Profile, mapUserToProps);
+function mapUserToProps(state: any) {
+  return {
+    user: {
+      name: state.user.name,
+      avatar: state.user.avatar,
+    }
+  };
+};
+
+export default connect(Profile, mapUserToProps);

@@ -1,4 +1,4 @@
-import Block from '../../../../../utils/block';
+import Block from '../../../../../services/block';
 import Message from './message/message';
 import './chat.css';
 import { IUser, IChatResponse } from '../../../../../utils/interfaces';

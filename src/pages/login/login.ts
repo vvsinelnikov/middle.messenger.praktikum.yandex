@@ -1,18 +1,17 @@
-import Block from '../../utils/block';
+import Block from '../../services/block';
 import Heading from '../../components/heading/heading';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Link from '../../components/link/link';
 import Form from '../../modules/form/form';
 import template from './login.tmpl';
-import render from '../../utils/render';
 import '../index.css';
 import './login.css';
-import { IBlock } from '../../utils/interfaces';
 
-function loginPage(): IBlock {
+// Создание класса и рендеринг страницы
+class Login extends Block {
   // Данные для инпутов
-  const loginData = {
+  static loginData = {
     className: 'login__input',
     name: 'login',
     placeholder: 'Логин',
@@ -22,7 +21,7 @@ function loginPage(): IBlock {
     required: 'required',
   };
 
-  const passwordData = {
+  static passwordData = {
     className: 'login__input',
     name: 'password',
     placeholder: 'Пароль',
@@ -33,66 +32,62 @@ function loginPage(): IBlock {
   };
 
   // Элементы формы
-  const inputLogin = new Input(loginData);
-  const inputPassword = new Input(passwordData);
+  static inputLogin = new Input(Login.loginData);
+  static inputPassword = new Input(Login.passwordData);
 
-  const heading = new Heading({
+  static heading = new Heading({
     headingText: 'Вход',
     className: 'heading',
   });
 
-  const button = new Button({
+  static button = new Button({
     buttonText: 'Авторизоваться',
     className: 'welcome__button',
     type: 'submit',
     events: {
       click: (evt: Event) => {
         evt.preventDefault();
-        form.enableValidation();
-        form.sendForm();
+        Login.form.enableValidation();
+        Login.form.sendForm();
       },
     },
   });
 
-  const link = new Link({
+  static link = new Link({
     className: 'link',
     linkText: 'Нет аккаунта?',
     href: 'register',
   });
 
   // Форма с элементами
-  const form = new Form({
+  static form = new Form({
     className: 'form form_login',
     template,
-    heading,
-    inputLogin,
-    inputPassword,
-    button,
-    link,
+    heading: Login.heading,
+    inputLogin: Login.inputLogin,
+    inputPassword: Login.inputPassword,
+    button: Login.button,
+    link: Login.link,
   });
 
-  // Создание класса и рендеринг страницы
-  class Login extends Block {
-    constructor(props: {
-      className: string;
-      form: Form;
-    }) {
-      super('div', props);
-      this.props = props;
+  static __instance: Login;
+
+  constructor() {
+    if (Login.__instance) {
+      return Login.__instance;
     }
 
-    public render() {
-      return this.compile('{{{form}}}', this.props);
-    }
+    super('div', {
+      className: 'login',
+      form: Login.form,
+    });
+
+    Login.__instance = this;
   }
 
-  const login = new Login({
-    className: 'login',
-    form,
-  });
-  render('.page', login.getContent());
-  login.dispatchComponentDidMount();
-  return login;
-}
+  public render() {
+    return this.compile('{{{form}}}', {});
+  }
+};
 
-export default loginPage;
+export default Login;

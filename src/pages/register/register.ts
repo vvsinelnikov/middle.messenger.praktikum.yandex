@@ -1,26 +1,25 @@
-import Block from '../../utils/block';
+import Block from '../../services/block';
 import Heading from '../../components/heading/heading';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import Link from '../../components/link/link';
 import Form from '../../modules/form/form';
 import template from './register.tmpl';
-import render from '../../utils/render';
 import '../index.css';
 import './register.css';
 
-function registerPage() {
-  // Данные для инпутов
-  const emailData = {
+// Создание класса и рендеринг страницы
+class Register extends Block {
+  // Элемены формы
+  static inputEmail = new Input({
     className: 'register__input',
     name: 'email',
     placeholder: 'Почта',
     type: 'email',
     maxLength: 40,
     required: 'required',
-  };
-
-  const loginData = {
+  });
+  static inputLogin = new Input({
     className: 'register__input',
     name: 'login',
     placeholder: 'Логин',
@@ -28,9 +27,8 @@ function registerPage() {
     minLength: 2,
     maxLength: 40,
     required: 'required',
-  };
-
-  const nameData = {
+  });
+  static inputName = new Input({
     className: 'register__input',
     name: 'name',
     placeholder: 'Имя',
@@ -38,9 +36,8 @@ function registerPage() {
     minLength: 2,
     maxLength: 40,
     required: 'required',
-  };
-
-  const surnameData = {
+  });
+  static inputSurname = new Input({
     className: 'register__input',
     name: 'surname',
     placeholder: 'Фамилия',
@@ -48,18 +45,16 @@ function registerPage() {
     minLength: 2,
     maxLength: 40,
     required: 'required',
-  };
-
-  const telData = {
+  });
+  static inputTel = new Input({
     className: 'register__input',
     name: 'tel',
     placeholder: 'Телефон',
     type: 'tel',
     maxLength: 40,
     required: 'required',
-  };
-
-  const passwordData = {
+  });
+  static inputPassword = new Input({
     className: 'register__input',
     name: 'password',
     placeholder: 'Пароль',
@@ -67,9 +62,8 @@ function registerPage() {
     minLength: 2,
     maxLength: 40,
     required: 'required',
-  };
-
-  const passwordCheckData = {
+  });
+  static inputPasswordCheck = new Input({
     className: 'register__input',
     name: 'password_check',
     placeholder: 'Пароль (еще раз)',
@@ -77,79 +71,66 @@ function registerPage() {
     minLength: 2,
     maxLength: 40,
     required: 'required',
-  };
+  });
 
-  // Элемены формы
-  const inputEmail = new Input(emailData);
-  const inputLogin = new Input(loginData);
-  const inputName = new Input(nameData);
-  const inputSurname = new Input(surnameData);
-  const inputTel = new Input(telData);
-  const inputPassword = new Input(passwordData);
-  const inputPasswordCheck = new Input(passwordCheckData);
-
-  const heading = new Heading({
+  static heading = new Heading({
     headingText: 'Регистрация',
     className: 'heading',
   });
 
-  const button = new Button({
+  static button = new Button({
     buttonText: 'Зарегистрироваться',
     className: 'welcome__button',
     type: 'submit',
     events: {
       click: (evt: Event) => {
         evt.preventDefault();
-        form.enableValidation();
-        form.sendForm();
+        Register.form.enableValidation();
+        Register.form.sendForm();
       },
     },
   });
 
-  const link = new Link({
+  static link = new Link({
     className: 'link',
     linkText: 'Войти',
     href: 'login',
   });
 
   // Форма с элементами
-  const form = new Form({
+  static form = new Form({
     className: 'form',
     template,
-    heading,
-    inputEmail,
-    inputLogin,
-    inputName,
-    inputSurname,
-    inputTel,
-    inputPassword,
-    inputPasswordCheck,
-    button,
-    link,
+    heading: Register.heading,
+    inputEmail: Register.inputEmail,
+    inputLogin: Register.inputLogin,
+    inputName: Register.inputName,
+    inputSurname: Register.inputSurname,
+    inputTel: Register.inputTel,
+    inputPassword: Register.inputPassword,
+    inputPasswordCheck: Register.inputPasswordCheck,
+    button: Register.button,
+    link: Register.link,
   });
 
-  // Создание класса и рендеринг страницы
-  class Register extends Block {
-    constructor(props: {
-      className: string;
-      form: Form;
-    }) {
-      super('div', props);
-      this.props = props;
+  static __instance: Register;
+
+  constructor() {
+    if (Register.__instance) {
+      return Register.__instance;
     }
 
-    public render() {
-      return this.compile('{{{form}}}', this.props);
-    }
+    super('div', {
+      className: 'register',
+      form: Register.form,
+    });
+
+    Register.__instance = this;
   }
 
-  const register = new Register({
-    className: 'register',
-    form,
-  });
-  render('.page', register.getContent());
-  register.dispatchComponentDidMount();
+  public render() {
+    return this.compile('{{{form}}}', {});
+  }
+};
 
-}
-
-export default registerPage;
+export default Register;

@@ -1,4 +1,4 @@
-import Block from '../../../../../utils/block';
+import Block from '../../../../../services/block';
 import template from './snippet.tmpl';
 import './snippet.css';
 import { IUser, IChatResponse } from '../../../../../utils/interfaces';

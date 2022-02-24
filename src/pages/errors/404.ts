@@ -1,23 +1,14 @@
-import ErrorPage from './modules/error/error';
-import Link from '../../components/link/link';
-import render from '../../utils/render';
+import Error from './modules/error/error';
 import '../index.css';
 
-function errorPage404() {
-  const link = new Link({
-    className: 'link',
-    linkText: 'Назад к чатам',
-    href: '/',
-  });
-
-  const error = new ErrorPage({
-    className: 'error',
-    errorText: 'Не туда попали',
-    errorNumber: 404,
-    link,
-  });
-  render('.page', error.getContent());
-  error.dispatchComponentDidMount();
+class Error404 extends Error {
+  constructor() {
+    super({
+      className: 'error',
+      errorText: 'Не туда попали',
+      errorNumber: 404,
+    });
+  }
 };
 
-export default errorPage404;
+export default Error404;
